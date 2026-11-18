@@ -1,0 +1,13 @@
+# Lista branca: tudo fica fora, menos o que está liberado abaixo.
+# Planilhas de leads, planejamento, backups, versões antigas e o cache da Cloudflare
+# (.wrangler) nunca entram no repositório.
+/*
+!/.gitignore
+!/README.md
+!/LEIA-ME.md
+!/site/
+
+# Os vídeos ficam só no OneDrive e na Cloudflare.
+*.mp4
+*.mov
+*.webm

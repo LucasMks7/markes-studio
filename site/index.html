@@ -1,0 +1,1383 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>(function(h){if(h==="www.markes-studio.com"||h==="markes-studio.pages.dev")location.replace("https://markes-studio.com"+location.pathname+location.search+location.hash)})(location.hostname)</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Markes Studio · Cinematic AI videos for brands</title>
+<meta name="description" content="Markes Studio makes cinematic AI videos for brands: vertical 1080p films made from the photos you already have. First video $53.">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Markes Studio">
+<meta property="og:title" content="Markes Studio · Films that couldn’t be shot">
+<meta property="og:description" content="Cinematic AI videos for brands, made from the photos you already have. First video $53.">
+<meta property="og:url" content="https://markes-studio.com/">
+<meta property="og:image" content="https://markes-studio.com/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://markes-studio.com/">
+<link rel="alternate" hreflang="en" href="./">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Big+Shoulders+Display:wght@700;800;900&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Italiana&display=swap">
+<style>
+body { margin: 0; } [hidden] { display: none !important; } :root { padding-bottom: env(safe-area-inset-bottom, 0px); }
+
+/* Layout: a film-gate hero (headline beside the playing film), then quiet full-width bands.
+   The page has four "looks" switched on <html data-look>; Monolith (from Lucas's own film) is the default. */
+:root {
+  /* Monolith: true black, sodium-amber light */
+  --bg: #000000;
+  --bg-2: #120b05;
+  --fg: #f4e7d4;
+  --muted: #a48f78;
+  --accent: #ff8a1e;
+  --accent-ink: #1a0d00;
+  --line: rgba(255, 138, 30, 0.22);
+  --card: #0d0804;
+  --display: "Big Shoulders Display", "Arial Narrow", "Roboto Condensed", Impact, sans-serif;
+  --body: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --display-weight: 900;
+  --display-case: uppercase;
+  --display-track: 0.005em;
+  --display-leading: 0.86;
+  --radius: 2px;
+  --radius-lg: 4px;
+  --grain: 0.06;
+  --k: 1;
+  --lead-extra: 0;
+  color-scheme: dark;
+}
+:root[lang="pt"], :root[lang="es"] { --lead-extra: .12; }
+:root[data-look="sorbet"] {
+  --bg: #ffe6ef; --bg-2: #ffd3e3; --fg: #1d1f6b; --muted: #5b5c95; --accent: #2b45ff; --accent-ink: #ffffff;
+  --line: rgba(29, 31, 107, 0.18); --card: #fff4f8;
+  --display: "Bricolage Grotesque", "Trebuchet MS", sans-serif; --display-weight: 800; --display-case: none;
+  --display-track: -0.035em; --display-leading: 0.92; --radius: 18px; --radius-lg: 32px; --grain: 0; --k: .86; color-scheme: light;
+}
+:root[data-look="riviera"] {
+  --bg: #0d2e24; --bg-2: #0a251d; --fg: #f1e8d2; --muted: #b3ab92; --accent: #e2bf6a; --accent-ink: #0d2e24;
+  --line: rgba(226, 191, 106, 0.28); --card: #10372b;
+  --display: "Italiana", "Didot", "Bodoni 72", Georgia, serif; --display-weight: 400; --display-case: none;
+  --display-track: 0.01em; --display-leading: 0.98; --radius: 0px; --radius-lg: 0px; --grain: 0.05; --k: .95; color-scheme: dark;
+}
+:root[data-look="tabloid"] {
+  --bg: #ffe14a; --bg-2: #ffd51c; --fg: #111111; --muted: #4a4310; --accent: #e3261b; --accent-ink: #ffffff;
+  --line: rgba(17, 17, 17, 0.9); --card: #fff07f;
+  --display: "Archivo Black", "Arial Black", Impact, sans-serif; --display-weight: 400; --display-case: uppercase;
+  --display-track: -0.02em; --display-leading: 0.9; --radius: 0px; --radius-lg: 0px; --grain: 0; --k: .64; color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--body); font-size: 17px; line-height: 1.55;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  transition: background-color .5s ease, color .5s ease;
+  overflow-x: clip;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--bg); }
+/* film grain, Monolith and Riviera only */
+body::after {
+  content: ""; position: fixed; inset: -50%; pointer-events: none; z-index: 70; opacity: var(--grain);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 1.2s steps(6) infinite;
+}
+@keyframes grain { 0%{transform:translate(0,0)} 20%{transform:translate(-3%,2%)} 40%{transform:translate(2%,-3%)} 60%{transform:translate(-2%,-1%)} 80%{transform:translate(3%,3%)} 100%{transform:translate(0,0)} }
+
+a { color: inherit; }
+img, video { max-width: 100%; display: block; }
+.wrap { width: 100%; max-width: 1240px; margin-inline: auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.band { padding-block: clamp(64px, 10vw, 128px); border-top: 1px solid var(--line); }
+.display { font-family: var(--display); font-weight: var(--display-weight); text-transform: var(--display-case); letter-spacing: var(--display-track); line-height: calc(var(--display-leading) + var(--lead-extra)); margin: 0; text-wrap: balance; }
+.display { overflow-wrap: break-word; }
+h2.display { font-size: calc(clamp(2.6rem, 6.4vw, 5.2rem) * var(--k)); }
+h3 { font-size: 1.2rem; line-height: 1.25; margin: 0; font-weight: 700; }
+p { margin: 0; }
+.lede { font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--muted); max-width: 58ch; }
+.section-head { display: grid; gap: 18px; margin-bottom: clamp(36px, 6vw, 64px); max-width: 860px; }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+html { -webkit-tap-highlight-color: transparent; }
+button, a, summary, select { touch-action: manipulation; }
+.skip { position: absolute; left: -9999px; top: 8px; z-index: 99; }
+.skip:focus { left: 12px; }
+.lang button:hover, .cur button:hover, .levels button:hover { color: var(--fg); }
+.lang button[aria-pressed="true"]:hover, .cur button[aria-pressed="true"]:hover, .levels button[aria-pressed="true"]:hover { color: var(--accent-ink); }
+.pause { right: auto; left: 12px; }
+.ticker { position: relative; }
+.ticker-pause { position: absolute; right: max(10px, env(safe-area-inset-right, 0px)); top: 50%; transform: translateY(-50%); z-index: 2; min-height: 36px; padding: 0 12px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-2); color: var(--fg); font: 600 .8rem/1 var(--body); cursor: pointer; }
+.ticker-pause:hover { border-color: var(--accent); }
+.ticker.paused .ticker-track, .ticker:focus-within .ticker-track { animation-play-state: paused; }
+
+/* buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 22px;
+  font: 700 1rem/1 var(--body); text-decoration: none; border-radius: var(--radius); cursor: pointer;
+  border: 1.5px solid var(--accent); background: var(--accent); color: var(--accent-ink);
+  transition: transform .15s ease, background-color .2s ease, color .2s ease, box-shadow .2s ease;
+  touch-action: manipulation;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px -10px var(--accent); }
+.btn:active { transform: translateY(0); }
+.btn.ghost { background: transparent; color: var(--fg); border-color: var(--line); }
+.btn.ghost:hover { border-color: var(--accent); box-shadow: none; }
+:root[data-look="tabloid"] .btn { border: 2px solid #111; box-shadow: 4px 4px 0 #111; }
+:root[data-look="tabloid"] .btn:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 #111; }
+
+/* header */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); transition: background-color .5s ease; }
+.top .wrap { display: flex; align-items: center; gap: 20px; min-height: 68px; }
+.mark { font-family: var(--display); font-weight: var(--display-weight); text-transform: var(--display-case); letter-spacing: var(--display-track); font-size: calc(1.55rem * var(--k)); line-height: 1; text-decoration: none; white-space: nowrap; display: inline-flex; align-items: center; gap: 10px; }
+.mark { min-width: 0; flex: 0 1 auto; }
+.mark > span[translate] { overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 420px) { .top .wrap { gap: 8px; } .lang button { min-width: 30px; padding: 9px 5px; } .menu-btn { padding: 0 8px; } }
+.mark-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 14px var(--accent); flex: none; }
+.nav { display: flex; gap: 22px; margin-left: auto; }
+.nav a { text-decoration: none; font-weight: 500; font-size: .95rem; color: var(--muted); padding-block: 6px; }
+.nav a:hover { color: var(--fg); }
+.lang { display: flex; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; flex: none; }
+.lang button { background: none; border: 0; color: var(--muted); font: 600 .8rem/1 var(--body); padding: 9px 10px; cursor: pointer; min-width: 40px; min-height: 36px; }
+.lang button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.top .btn { min-height: 40px; padding: 0 16px; font-size: .92rem; white-space: nowrap; flex: none; }
+.nav a { white-space: nowrap; }
+.menu-btn { display: none; align-items: center; justify-content: center; min-height: 40px; padding: 0 14px; border: 1px solid var(--line); border-radius: var(--radius); background: transparent; color: var(--fg); font: 600 .9rem/1 var(--body); cursor: pointer; flex: none; }
+.menu-btn:hover { border-color: var(--accent); }
+@media (max-width: 1180px) {
+  .nav {
+    display: none; position: absolute; top: 100%; left: 0; right: 0; margin: 0; flex-direction: column; gap: 0;
+    padding: 6px max(16px, env(safe-area-inset-right, 0px)) 18px max(16px, env(safe-area-inset-left, 0px));
+    background: var(--bg); border-bottom: 1px solid var(--line); box-shadow: 0 24px 40px -24px rgba(0,0,0,.5);
+  }
+  .nav.open { display: flex; }
+  .nav a { padding: 14px 0; font-size: 1.1rem; color: var(--fg); border-bottom: 1px solid var(--line); }
+  .nav a:last-child { border-bottom: 0; }
+  .lang { margin-left: auto; }
+  .menu-btn { display: inline-flex; }
+}
+@media (max-width: 980px) {
+  .top .btn { display: none; }
+}
+
+/* hero */
+.hero { padding-block: clamp(28px, 5vw, 64px) clamp(56px, 8vw, 96px); }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr); gap: clamp(28px, 4vw, 56px); align-items: center; }
+.hero h1 { font-size: calc(clamp(3.4rem, 8.6vw, 8.4rem) * var(--k)); }
+.hero-copy { display: grid; gap: 26px; align-content: center; min-width: 0; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.price-tag s { opacity: .65; font-weight: 500; margin-right: 6px; }
+
+.gate { position: relative; min-width: 0; }
+.gate-frame { position: relative; aspect-ratio: 4 / 3; background: #000; border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 30px 80px -30px rgba(0,0,0,.6); }
+.gate-frame video, .gate-frame img { width: 100%; height: 100%; object-fit: cover; }
+.edge { display: flex; justify-content: space-between; gap: 12px; padding: 10px 2px 0; font: 500 .78rem/1.3 var(--body); color: var(--muted); font-variant-numeric: tabular-nums; }
+.edge b { color: var(--fg); font-weight: 600; }
+.sound { position: absolute; right: 12px; bottom: 12px; min-height: 40px; padding: 0 14px; font-size: .85rem; background: rgba(0,0,0,.55); color: #fff; border-color: rgba(255,255,255,.35); backdrop-filter: blur(6px); }
+.sound:hover { box-shadow: none; }
+
+/* look switcher */
+.looks { display: grid; gap: 10px; }
+.looks-label { font-size: .9rem; color: var(--muted); }
+.look-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.look {
+  display: inline-flex; align-items: center; gap: 9px; min-height: 44px; padding: 0 14px 0 8px; cursor: pointer;
+  border: 1px solid var(--line); background: transparent; color: var(--fg); border-radius: 999px; font: 600 .92rem/1 var(--body);
+  transition: border-color .2s ease, background-color .2s ease;
+}
+.look:hover { border-color: var(--accent); }
+.look[aria-pressed="true"] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, transparent); }
+.swatch { width: 26px; height: 26px; border-radius: 50%; flex: none; border: 1px solid rgba(127,127,127,.35); }
+.sw-monolith { background: radial-gradient(circle at 35% 35%, #ff8a1e 0 30%, #000 62%); }
+.sw-sorbet { background: linear-gradient(135deg, #ffd3e3 0 50%, #2b45ff 50%); }
+.sw-riviera { background: linear-gradient(135deg, #0d2e24 0 55%, #e2bf6a 55%); }
+.sw-tabloid { background: linear-gradient(135deg, #ffe14a 0 55%, #e3261b 55%); }
+
+/* impossible briefs ticker */
+.ticker { border-block: 1px solid var(--line); overflow: hidden; background: var(--bg-2); transition: background-color .5s ease; }
+.ticker-track { display: flex; width: max-content; animation: tick 60s linear infinite; }
+.ticker:hover .ticker-track { animation-play-state: paused; }
+.ticker ul { display: flex; list-style: none; margin: 0; padding: 18px 0; }
+.ticker li { font-family: var(--display); font-weight: var(--display-weight); text-transform: var(--display-case); letter-spacing: var(--display-track); font-size: calc(clamp(1.4rem, 2.6vw, 2.1rem) * var(--k)); line-height: 1; white-space: nowrap; padding-inline: 28px; display: flex; align-items: center; gap: 28px; }
+.ticker li::after { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); flex: none; }
+@keyframes tick { to { transform: translateX(-50%); } }
+
+/* work */
+.work-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 48px); align-items: start; }
+.player { position: relative; aspect-ratio: 4 / 3; background: #000; border-radius: var(--radius-lg); overflow: hidden; }
+.player video { width: 100%; height: 100%; object-fit: cover; }
+.case { display: grid; gap: 20px; min-width: 0; }
+.case h3 { font-family: var(--display); font-weight: var(--display-weight); text-transform: var(--display-case); letter-spacing: var(--display-track); font-size: calc(clamp(2.2rem, 4vw, 3.4rem) * var(--k)); line-height: calc(var(--display-leading) + var(--lead-extra)); }
+.facts { display: grid; grid-template-columns: auto 1fr; gap: 8px 18px; margin: 0; font-size: .98rem; }
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; }
+.stills { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: clamp(20px, 3vw, 32px); }
+.stills figure { margin: 0; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--radius); background: #000; }
+.stills img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.stills figure:hover img { transform: scale(1.03); }
+
+/* services */
+.niches { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+.niche { display: grid; gap: 10px; padding: 28px 28px 30px 0; border-bottom: 1px solid var(--line); min-width: 0; }
+.niche:nth-child(even) { padding-left: 28px; padding-right: 0; border-left: 1px solid var(--line); }
+.niche h3 { font-size: 1.35rem; }
+.niche p { color: var(--muted); }
+.niche .idea { color: var(--fg); font-style: italic; }
+:root[data-look="riviera"] .niche h3 { font-family: var(--display); font-weight: 400; font-size: 1.7rem; }
+
+/* process */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(16px, 2.4vw, 28px); counter-reset: step; }
+.steps li { counter-increment: step; display: grid; gap: 10px; align-content: start; padding-top: 18px; border-top: 2px solid var(--accent); min-width: 0; }
+.steps li::before { content: counter(step); font-family: var(--display); font-weight: var(--display-weight); font-size: 3.2rem; line-height: 1; color: var(--accent); }
+.steps p { color: var(--muted); }
+.need { margin-top: clamp(40px, 6vw, 64px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: clamp(20px, 4vw, 48px); padding: clamp(22px, 3vw, 36px); background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg); transition: background-color .5s ease; }
+.need ul { margin: 0; padding-left: 1.1em; display: grid; gap: 8px; }
+
+/* pricing */
+.price-top { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 28px; }
+.cur { display: inline-flex; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.cur button { background: none; border: 0; color: var(--muted); font: 700 .95rem/1 var(--body); padding: 0 18px; min-height: 44px; cursor: pointer; }
+.cur button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.first {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 20px 32px; align-items: center;
+  padding: clamp(22px, 3vw, 34px); border: 1.5px solid var(--accent); border-radius: var(--radius-lg); margin-bottom: 22px;
+  background: color-mix(in srgb, var(--accent) 9%, transparent);
+}
+.first h3 { font-size: clamp(1.4rem, 2.4vw, 1.9rem); }
+.first p { color: var(--muted); margin-top: 8px; max-width: 60ch; }
+.first-buy { display: grid; gap: 14px; justify-items: end; }
+.first .amount { font-family: var(--display); font-weight: var(--display-weight); font-size: calc(clamp(3rem, 6vw, 4.6rem) * var(--k)); line-height: 1; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.first .amount s { font-family: var(--body); font-weight: 500; font-size: 1.1rem; color: var(--muted); margin-right: 10px; vertical-align: middle; }
+.plans { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.plan { position: relative; display: grid; grid-template-rows: auto auto auto 1fr auto; gap: 12px; padding: 24px 22px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--card); min-width: 0; transition: background-color .5s ease; }
+.plan.star { border: 2px solid var(--accent); }
+.badge { position: absolute; top: -13px; left: 20px; background: var(--accent); color: var(--accent-ink); font: 700 .78rem/1 var(--body); padding: 7px 10px; border-radius: var(--radius); }
+.plan .amount { font-family: var(--display); font-weight: var(--display-weight); font-size: calc(clamp(2.4rem, 3.6vw, 3.2rem) * var(--k)); line-height: 1; font-variant-numeric: tabular-nums; }
+.plan .per { color: var(--muted); font-size: .92rem; font-variant-numeric: tabular-nums; }
+.plan ul { margin: 0; padding-left: 1.05em; display: grid; gap: 6px; font-size: .96rem; }
+.plan .btn { width: 100%; }
+.studio { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 28px; margin-top: 14px; padding: 22px; border: 1px dashed var(--line); border-radius: var(--radius-lg); }
+.studio p { color: var(--muted); max-width: 70ch; }
+.small-tables { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 4vw, 48px); margin-top: clamp(36px, 5vw, 56px); }
+.small-tables h3 { margin-bottom: 12px; }
+.tbl { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: .98rem; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 11px 8px 11px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--muted); font-weight: 500; }
+td.num, th.num { text-align: right; padding-right: 0; white-space: nowrap; }
+.fine { color: var(--muted); font-size: .92rem; margin-top: 18px; max-width: 80ch; }
+
+/* faq */
+.faq { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: clamp(24px, 5vw, 64px); }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq details:first-of-type { border-top: 1px solid var(--line); }
+.faq summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 18px; padding: 20px 0; font-weight: 600; font-size: 1.08rem; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-family: var(--display); font-size: 1.6rem; line-height: .8; color: var(--accent); transition: transform .2s ease; flex: none; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { color: var(--muted); padding-bottom: 22px; max-width: 64ch; }
+
+/* contact */
+.contact-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: clamp(24px, 5vw, 64px); align-items: start; }
+.channels { display: grid; gap: 14px; margin-top: 28px; }
+.channel { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 18px 20px; border: 1px solid var(--line); border-radius: var(--radius-lg); text-decoration: none; background: var(--card); transition: border-color .2s ease, background-color .5s ease; }
+.channel:hover { border-color: var(--accent); }
+.channel span { color: var(--muted); font-size: .9rem; display: block; }
+.channel strong { font-size: .98rem; font-weight: 600; overflow-wrap: anywhere; }
+.channel > div:first-child { min-width: 0; }
+.ch-actions { display: flex; gap: 8px; flex: none; }
+.mini { display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border: 1px solid var(--line); border-radius: var(--radius); background: transparent; color: var(--fg); font: 600 .9rem/1 var(--body); text-decoration: none; cursor: pointer; }
+.mini:hover { border-color: var(--accent); }
+#email-addr { user-select: all; }
+form { display: grid; gap: 16px; padding: clamp(20px, 3vw, 32px); border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--card); transition: background-color .5s ease; }
+.row2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+label { display: grid; gap: 7px; font-weight: 600; font-size: .95rem; }
+input, select, textarea { width: 100%; font: 400 1rem/1.4 var(--body); color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; transition: border-color .2s ease; }
+input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+select { background-color: var(--bg); color: var(--fg); }
+textarea { min-height: 110px; resize: vertical; }
+.out { display: grid; gap: 10px; }
+.out textarea { min-height: 150px; font-size: .95rem; }
+.out-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.status { font-size: .92rem; color: var(--muted); min-height: 1.4em; margin: 0; }
+.out-actions .status { flex: 1 1 220px; }
+.err { color: var(--accent); font-size: .88rem; font-weight: 600; }
+input[aria-invalid="true"], textarea[aria-invalid="true"] { border-color: var(--accent); }
+.alt { border-top: 1px solid var(--line); padding-top: 14px; }
+.alt summary { cursor: pointer; color: var(--muted); font-weight: 600; font-size: .95rem; padding-block: 6px; }
+.alt summary:hover { color: var(--fg); }
+.alt[open] summary { margin-bottom: 12px; }
+#send-btn[aria-busy="true"] { opacity: .7; cursor: progress; }
+.sent { display: grid; gap: 14px; align-content: start; padding: clamp(24px, 3vw, 36px); border: 1.5px solid var(--accent); border-radius: var(--radius-lg); background: color-mix(in srgb, var(--accent) 9%, transparent); }
+.sent[hidden] { display: none; }
+.sent h3 { font-family: var(--display); font-weight: var(--display-weight); text-transform: var(--display-case); letter-spacing: var(--display-track); font-size: calc(2.4rem * var(--k)); line-height: 1; }
+.sent p { color: var(--muted); }
+
+footer { border-top: 1px solid var(--line); padding-block: 36px 48px; color: var(--muted); font-size: .92rem; }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; }
+.foot-mark { font-family: var(--display); font-weight: var(--display-weight); text-transform: var(--display-case); font-size: calc(clamp(3rem, 13vw, 11rem) * var(--k)); line-height: calc(.85 + var(--lead-extra)); color: var(--fg); letter-spacing: var(--display-track); margin-bottom: 28px; overflow-wrap: anywhere; }
+
+/* hero spotlight: a pool of light follows the pointer (fine pointers only) */
+.hero { position: relative; isolation: isolate; }
+.hero::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0; transition: opacity .6s ease;
+  background: radial-gradient(520px circle at var(--mx, 30%) var(--my, 40%), color-mix(in srgb, var(--accent) 20%, transparent), transparent 70%);
+}
+.hero.lit::before { opacity: 1; }
+
+/* film strip for the stills */
+.strip { margin-top: clamp(20px, 3vw, 32px); padding: 22px 0; background: #050302; border-radius: var(--radius); position: relative; overflow: hidden; }
+.strip::before, .strip::after {
+  content: ""; position: absolute; left: 0; right: 0; height: 12px; pointer-events: none;
+  background: repeating-linear-gradient(90deg, transparent 0 10px, color-mix(in srgb, var(--bg) 70%, #3a2a1a) 10px 26px, transparent 26px 36px);
+  -webkit-mask: linear-gradient(#000 0 0); opacity: .9;
+}
+.strip::before { top: 5px; } .strip::after { bottom: 5px; }
+.strip .stills { margin: 0; padding-inline: 10px; }
+.strip figure { position: relative; border-radius: 1px; }
+.strip figcaption { position: absolute; left: 8px; bottom: 6px; color: #f4e7d4; font-size: .78rem; font-weight: 600; text-shadow: 0 1px 6px rgba(0,0,0,.8); font-variant-numeric: tabular-nums; }
+
+
+/* before / after */
+.ba { display: grid; gap: clamp(20px, 3vw, 32px); margin-bottom: clamp(48px, 7vw, 88px); }
+.ba-title { font-family: var(--display); font-weight: var(--display-weight); text-transform: var(--display-case); letter-spacing: var(--display-track); line-height: calc(var(--display-leading) + var(--lead-extra)); font-size: calc(clamp(1.9rem, 3.8vw, 3.2rem) * var(--k)); text-wrap: balance; }
+.ba-grid { display: grid; grid-template-columns: minmax(0, .85fr) 56px minmax(0, 1.65fr); gap: 0 clamp(12px, 2vw, 24px); align-items: center; }
+.ba h4 { margin: 0 0 14px; font-size: .95rem; color: var(--muted); font-weight: 600; }
+.ba-photos { display: flex; justify-content: center; padding: 12px 0 18px; }
+.ba-photos figure { margin: 0 -14px; width: 36%; background: #fff; border-radius: var(--radius); padding: 6px 6px 0; box-shadow: 0 14px 30px -14px rgba(0,0,0,.55); transition: transform .35s cubic-bezier(.2,.7,.2,1); position: relative; }
+.ba-photos figure:nth-child(1) { transform: rotate(-5deg) translateY(6px); z-index: 1; }
+.ba-photos figure:nth-child(2) { z-index: 2; }
+.ba-photos figure:nth-child(3) { transform: rotate(5deg) translateY(6px); z-index: 1; }
+.ba-photos:hover figure:nth-child(1) { transform: rotate(-2deg) translate(-14px, 0); }
+.ba-photos:hover figure:nth-child(3) { transform: rotate(2deg) translate(14px, 0); }
+.ba-photos img { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: contain; background: #fff; }
+.ba-photos figcaption { color: #444; font-size: .75rem; font-weight: 600; text-align: center; padding: 5px 0 6px; }
+.ba-flow { position: relative; height: 2px; background: var(--line); align-self: center; }
+.ba-flow span { position: absolute; top: -3px; left: 0; width: 18px; height: 8px; border-radius: 8px; background: var(--accent); box-shadow: 0 0 14px var(--accent); animation: flow 1.8s cubic-bezier(.5,0,.5,1) infinite; }
+@keyframes flow { from { transform: translateX(-4px); opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } to { transform: translateX(42px); opacity: 0; } }
+.ba-film { position: relative; aspect-ratio: 16 / 9; background: #000; border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 30px 70px -30px rgba(0,0,0,.65); }
+.ba-film video { width: 100%; height: 100%; object-fit: cover; }
+.ba-cap { margin-top: 14px; max-width: 70ch; }
+.ba-out .fine { margin-top: 8px; font-size: .82rem; }
+@media (max-width: 980px) {
+  .ba-grid { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .ba-flow { width: 2px; height: 44px; justify-self: center; }
+  .ba-flow span { left: -3px; top: 0; width: 8px; height: 18px; animation-name: flowv; }
+  @keyframes flowv { from { transform: translateY(-4px); opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } to { transform: translateY(30px); opacity: 0; } }
+  .ba-photos figure { width: 30%; }
+}
+/* niche explorer */
+.explorer { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
+.ex-list { display: grid; border-top: 1px solid var(--line); }
+.ex-tab {
+  all: unset; box-sizing: border-box; cursor: pointer; display: flex; align-items: baseline; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--line);
+  font-family: var(--display); font-weight: var(--display-weight); text-transform: var(--display-case); letter-spacing: var(--display-track);
+  font-size: calc(clamp(1.5rem, 2.8vw, 2.4rem) * var(--k)); line-height: 1; color: var(--muted); transition: color .25s ease, padding-left .3s ease;
+}
+.ex-tab small { font-family: var(--body); font-size: .8rem; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--muted); font-variant-numeric: tabular-nums; min-width: 1.6em; }
+.ex-tab:hover { color: var(--fg); }
+.ex-tab[aria-selected="true"] { color: var(--fg); padding-left: 14px; box-shadow: inset 3px 0 0 var(--accent); }
+.ex-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.ex-panels { position: sticky; top: 96px; min-width: 0; }
+.ex-panel { padding: clamp(22px, 3vw, 36px); background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg); display: grid; gap: 18px; transition: background-color .5s ease; }
+.ex-panel[hidden] { display: none; }
+.ex-panel.enter { animation: wipe .55s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes wipe { from { clip-path: inset(0 100% 0 0); opacity: .4; } to { clip-path: inset(0 0 0 0); opacity: 1; } }
+.ex-idea { font-family: var(--display); font-weight: var(--display-weight); text-transform: var(--display-case); letter-spacing: var(--display-track); line-height: calc(var(--display-leading) + var(--lead-extra)); font-size: calc(clamp(1.9rem, 3.6vw, 3rem) * var(--k)); color: var(--accent); text-wrap: balance; }
+.ex-panel p { color: var(--muted); }
+.ex-panel .ex-idea { color: var(--accent); }
+.ex-send { display: grid; gap: 8px; padding-top: 16px; border-top: 1px solid var(--line); }
+.ex-send h3 { margin: 0; font-size: .95rem; }
+.ex-send ul { margin: 0; padding-left: 1.1em; display: grid; gap: 5px; font-size: .96rem; }
+
+/* material meter */
+.material { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: clamp(24px, 5vw, 64px); align-items: start; }
+.material .note { margin-top: 22px; padding: 16px 18px; border-left: 3px solid var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent); max-width: 60ch; }
+.meter-box { padding: clamp(22px, 3vw, 34px); background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg); display: grid; gap: 22px; transition: background-color .5s ease; }
+.levels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.levels button { background: none; border: 0; color: var(--muted); font: 700 .95rem/1.2 var(--body); min-height: 48px; padding: 8px; cursor: pointer; }
+.levels button + button { border-left: 1px solid var(--line); }
+.levels button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.meter { height: 14px; border-radius: 99px; background: color-mix(in srgb, var(--fg) 10%, transparent); overflow: hidden; }
+.meter i { display: block; height: 100%; width: var(--fill, 34%); border-radius: inherit; background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 55%, var(--bg)), var(--accent)); transition: width .6s cubic-bezier(.2,.7,.2,1); }
+.meter-scale { display: flex; justify-content: space-between; font-size: .82rem; color: var(--muted); margin-top: -12px; }
+.lvl { display: grid; gap: 14px; }
+.lvl[hidden] { display: none; }
+.lvl ul { margin: 0; padding-left: 1.1em; display: grid; gap: 7px; }
+.lvl .result { font-weight: 600; }
+.lvl .result span { color: var(--accent); }
+
+/* pack 5: a slow ring of light around the card */
+@property --ang { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.plan.star { border-color: transparent; isolation: isolate; }
+.plan.star::before {
+  content: ""; position: absolute; inset: -2px; z-index: -1; border-radius: calc(var(--radius-lg) + 2px);
+  background: conic-gradient(from var(--ang), var(--accent), transparent 30%, transparent 55%, var(--accent) 75%, var(--accent));
+  animation: spin 6s linear infinite;
+}
+.plan.star::after { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: var(--radius-lg); background: var(--card); }
+@keyframes spin { to { --ang: 360deg; } }
+
+/* scroll-linked touches where the browser supports them; content is always visible */
+@supports (animation-timeline: view()) {
+  h2.display {
+    background: linear-gradient(100deg, var(--fg) 0 42%, var(--accent) 50%, var(--fg) 58% 100%);
+    background-size: 260% 100%; background-position: 100% 0;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: sheen linear both; animation-timeline: view(); animation-range: entry 10% cover 45%;
+  }
+  @keyframes sheen { to { background-position: 0 0; } }
+  .steps { position: relative; }
+  .steps li { border-top-color: color-mix(in srgb, var(--accent) 25%, transparent); position: relative; }
+  .steps li::after { content: ""; position: absolute; top: -2px; left: 0; height: 2px; width: 100%; background: var(--accent); transform-origin: left; animation: draw linear both; animation-timeline: view(); animation-range: entry 0% cover 40%; }
+  @keyframes draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .stills img { animation: develop linear both; animation-timeline: view(); animation-range: entry 0% cover 35%; }
+  @keyframes develop { from { filter: brightness(.35) sepia(.6); } to { filter: none; } }
+}
+
+/* one entrance moment: the hero headline lights up once */
+@keyframes lightup { from { opacity: .15; filter: blur(6px); } to { opacity: 1; filter: none; } }
+.hero h1 { animation: lightup 1.1s ease-out both; }
+:root:not([data-look]) .hero h1, :root[data-look="monolith"] .hero h1 { text-shadow: 0 0 40px color-mix(in srgb, var(--accent) 35%, transparent); }
+
+@media (max-width: 980px) {
+  .hero-grid, .work-grid, .faq, .contact-grid, .need { grid-template-columns: minmax(0, 1fr); }
+  .plans { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 26px; }
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 32px; }
+}
+@media (max-width: 980px) {
+  .explorer, .material { grid-template-columns: minmax(0, 1fr); }
+  .ex-panels { position: static; }
+  .ex-list { display: flex; gap: 8px; overflow-x: auto; border: 0; padding-bottom: 6px; scrollbar-width: thin; }
+  .ex-tab { flex: none; border: 1px solid var(--line); border-radius: 999px; padding: 10px 16px; font-size: calc(1.1rem * var(--k)); white-space: nowrap; }
+  .ex-tab small { display: none; }
+  .ex-tab[aria-selected="true"] { padding-left: 16px; box-shadow: none; background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .hero-copy { display: contents; }
+  .hero h1 { order: 1; } .hero .lede { order: 2; } .gate { order: 3; } .hero-actions { order: 4; } .looks { order: 5; }
+  .hero-grid { gap: 24px; }
+}
+@media (max-width: 680px) {
+  body { font-size: 16px; }
+  .top .wrap { gap: 12px; }
+  .mark { font-size: calc(1.3rem * var(--k)); gap: 8px; }
+  .menu-btn { padding: 0 10px; }
+  .lang button { min-width: 34px; padding: 9px 7px; }
+  .niches { grid-template-columns: minmax(0, 1fr); }
+  .niche, .niche:nth-child(even) { padding: 24px 0; border-left: 0; }
+  .plans, .small-tables, .row2 { grid-template-columns: minmax(0, 1fr); }
+  .steps { grid-template-columns: minmax(0, 1fr); }
+  .stills { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .first { grid-template-columns: minmax(0, 1fr); }
+  .first-buy { justify-items: stretch; }
+  .hero-actions .btn { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .ticker-track { width: auto; flex-wrap: wrap; }
+  .ticker ul[aria-hidden="true"] { display: none; }
+  .ticker-pause { display: none; }
+  .ticker ul { flex-wrap: wrap; }
+}
+</style>
+</head>
+<body>
+<a class="btn skip" href="#main" data-i18n="skip">Skip to content</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="#top" aria-label="Markes Studio, back to top"><span class="mark-dot" aria-hidden="true"></span><span translate="no">Markes Studio</span></a>
+    <nav class="nav" id="site-nav" aria-label="Main">
+      <a href="#work" data-i18n="nav.work">Work</a>
+      <a href="#services" data-i18n="nav.services">What we make</a>
+      <a href="#process" data-i18n="nav.process">How it works</a>
+      <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
+      <a href="#faq" data-i18n="nav.faq">FAQ</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
+    </nav>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="pt" aria-pressed="false">PT</button>
+      <button type="button" data-lang="es" aria-pressed="false">ES</button>
+    </div>
+    <a class="btn" href="#contact" data-plan="First video" data-i18n="cta.short">Get your first video</a>
+    <button type="button" class="menu-btn" aria-expanded="false" aria-controls="site-nav">Menu</button>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <h1 class="display" data-i18n="hero.title">Films that couldn’t be shot.</h1>
+        <p class="lede" data-i18n="hero.lede">Cinematic AI videos for brands. Send the photos you already have and get vertical 1080p films for Reels, TikTok and ads. No crew, no shoot, no limits on what the camera can see.</p>
+        <div class="hero-actions">
+          <a class="btn price-tag" href="#contact" data-plan="First video"><span data-i18n="hero.cta1">First video for</span> <s data-price="single"></s><span data-price="first"></span></a>
+          <a class="btn ghost" href="#work" data-i18n="hero.cta2">Watch the work</a>
+        </div>
+        <div class="looks">
+          <span class="looks-label" id="looks-label" data-i18n="looks.label">Try another look. Same studio, any style:</span>
+          <div class="look-row" role="group" aria-labelledby="looks-label">
+            <button type="button" class="look" data-look="monolith" aria-pressed="true"><span class="swatch sw-monolith" aria-hidden="true"></span>Monolith</button>
+            <button type="button" class="look" data-look="sorbet" aria-pressed="false"><span class="swatch sw-sorbet" aria-hidden="true"></span>Sorbet</button>
+            <button type="button" class="look" data-look="riviera" aria-pressed="false"><span class="swatch sw-riviera" aria-hidden="true"></span>Riviera</button>
+            <button type="button" class="look" data-look="tabloid" aria-pressed="false"><span class="swatch sw-tabloid" aria-hidden="true"></span>Tabloid</button>
+          </div>
+        </div>
+      </div>
+      <div class="gate">
+        <div class="gate-frame">
+          <video id="hero-video" src="media/monolith-loop.mp4" poster="media/poster-hero.jpg" autoplay muted loop playsinline preload="auto" aria-label="MONOLITH, a short film made with AI by Markes Studio"></video>
+          <button type="button" class="btn ghost sound pause" data-pause="hero-video" aria-pressed="false">Pause</button>
+        </div>
+        <div class="edge" aria-hidden="true"><span><b>MONOLITH</b> 2026</span><span>1080p &nbsp; 30 fps &nbsp; 00:20</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ticker" aria-label="Examples of what we can make">
+    <button type="button" class="ticker-pause" id="ticker-pause" aria-pressed="false">Pause</button>
+    <div class="ticker-track">
+      <ul>
+        <li data-i18n="t1">A burger crossing the Ponte 25 de Abril</li>
+        <li data-i18n="t2">A ring born from molten gold</li>
+        <li data-i18n="t3">Sunrise to sunset from one window in 10 seconds</li>
+        <li data-i18n="t4">Your bottle landing on the Douro vines</li>
+        <li data-i18n="t5">A latte that swirls into your logo</li>
+        <li data-i18n="t6">A bouquet blooming from bud to flower</li>
+        <li data-i18n="t7">An empty apartment, staged in one take</li>
+      </ul>
+      <ul aria-hidden="true">
+        <li data-i18n="t1">A burger crossing the Ponte 25 de Abril</li>
+        <li data-i18n="t2">A ring born from molten gold</li>
+        <li data-i18n="t3">Sunrise to sunset from one window in 10 seconds</li>
+        <li data-i18n="t4">Your bottle landing on the Douro vines</li>
+        <li data-i18n="t5">A latte that swirls into your logo</li>
+        <li data-i18n="t6">A bouquet blooming from bud to flower</li>
+        <li data-i18n="t7">An empty apartment, staged in one take</li>
+      </ul>
+    </div>
+  </div>
+
+  <section class="band" id="work" aria-labelledby="work-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="display" id="work-title" data-i18n="work.title">The work</h2>
+        <p class="lede" data-i18n="work.lede">Every frame below was generated with AI and directed by hand. First, an ad made only from product photos. Then a short film with a look of its own.</p>
+      </div>
+      <div class="ba">
+        <h3 class="ba-title" data-i18n="ba.title">3 product photos in. 1 ad out.</h3>
+        <div class="ba-grid">
+          <div class="ba-in">
+            <h4 data-i18n="ba.in">What we received</h4>
+            <div class="ba-photos">
+              <figure><img src="media/bl-in-1.jpg" alt="Product photo of a whisky bottle, front" width="600" height="800" loading="lazy"><figcaption data-i18n="ba.c1">Front</figcaption></figure>
+              <figure><img src="media/bl-in-2.jpg" alt="Product photo of a whisky bottle, side" width="600" height="800" loading="lazy"><figcaption data-i18n="ba.c2">Side</figcaption></figure>
+              <figure><img src="media/bl-in-3.jpg" alt="Product photo of a whisky bottle, back" width="600" height="800" loading="lazy"><figcaption data-i18n="ba.c3">Back</figcaption></figure>
+            </div>
+            <p class="fine" data-i18n="ba.inp">3 standard product photos on white. No shoot, no set, no actors.</p>
+          </div>
+          <div class="ba-flow" aria-hidden="true"><span></span></div>
+          <div class="ba-out">
+            <h4 data-i18n="ba.out">What we made</h4>
+            <div class="ba-film">
+              <video id="ba-video" src="media/blacklabel.mp4" poster="media/blacklabel-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Spec ad: a whisky bottle on a table in a nightclub, the camera pushing in under colored lights"></video>
+              <button type="button" class="btn ghost sound pause" data-pause="ba-video" aria-pressed="false">Pause</button>
+              <button type="button" class="btn ghost sound" id="ba-sound" aria-pressed="false">Sound on</button>
+            </div>
+            <p class="ba-cap" data-i18n="ba.cap">Nightclub spec ad. 7 seconds, 1080p, 16:9. The bottle, the label and the glass stay true to the photos; the club, the crowd and the light are new.</p>
+            <p class="fine" data-i18n="ba.legal">Concept made to show the process. Not commissioned by or affiliated with Johnnie Walker or Diageo; the product and its images belong to their owner.</p>
+          </div>
+        </div>
+      </div>
+      <div class="work-grid">
+        <div class="player">
+          <video id="case-video" src="media/monolith.mp4" poster="media/poster.jpg" controls playsinline preload="metadata" aria-label="MONOLITH, full film with sound"></video>
+        </div>
+        <div class="case">
+          <h3 translate="no">Monolith</h3>
+          <p data-i18n="work.case">A moody visual for an artist: sodium light, film grain, a tower in the clouds and a figure walking into the glow. It shows what we care about most: light, texture and a story that holds for 20 seconds.</p>
+          <dl class="facts">
+            <dt data-i18n="work.f1">Format</dt><dd data-i18n="work.f1v">Music visualizer, 20 seconds</dd>
+            <dt data-i18n="work.f2">Look</dt><dd data-i18n="work.f2v">35mm film, amber light, grain</dd>
+            <dt data-i18n="work.f3">Made with</dt><dd data-i18n="work.f3v">AI video models, edited by Markes Studio</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="strip">
+        <div class="stills">
+          <figure><img src="media/still-1.jpg" alt="Close-up profile of a man lit by amber light" width="960" height="720" loading="lazy"><figcaption>00:07</figcaption></figure>
+          <figure><img src="media/still-2.jpg" alt="A steel transmission tower against grey clouds" width="960" height="720" loading="lazy"><figcaption>00:09</figcaption></figure>
+          <figure><img src="media/still-3.jpg" alt="Two film frames of a man in an orange glow" width="960" height="720" loading="lazy"><figcaption>00:10</figcaption></figure>
+          <figure><img src="media/still-4.jpg" alt="A silhouette walking toward a bright light in the fog" width="960" height="720" loading="lazy"><figcaption>00:12</figcaption></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="services" aria-labelledby="services-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="display" id="services-title" data-i18n="svc.title">What we make, for whom</h2>
+        <p class="lede" data-i18n="svc.lede">Any niche, any look. Pick your kind of business to see the video we’d make and what to send us for it.</p>
+      </div>
+      <div class="explorer">
+        <div class="ex-list" role="tablist" aria-label="Kinds of business" aria-orientation="vertical">
+          <button class="ex-tab" role="tab" id="tab-1" aria-controls="panel-1" aria-selected="true"><small>01</small><span data-i18n="n1.h">Restaurants</span></button>
+          <button class="ex-tab" role="tab" id="tab-2" aria-controls="panel-2" aria-selected="false" tabindex="-1"><small>02</small><span data-i18n="n2.h">Hotels and wineries</span></button>
+          <button class="ex-tab" role="tab" id="tab-3" aria-controls="panel-3" aria-selected="false" tabindex="-1"><small>03</small><span data-i18n="n3.h">Real estate</span></button>
+          <button class="ex-tab" role="tab" id="tab-4" aria-controls="panel-4" aria-selected="false" tabindex="-1"><small>04</small><span data-i18n="n4.h">Fashion and jewelry</span></button>
+          <button class="ex-tab" role="tab" id="tab-5" aria-controls="panel-5" aria-selected="false" tabindex="-1"><small>05</small><span data-i18n="n5.h">Clinics and med spas</span></button>
+          <button class="ex-tab" role="tab" id="tab-6" aria-controls="panel-6" aria-selected="false" tabindex="-1"><small>06</small><span data-i18n="n6.h">Coffee and products</span></button>
+          <button class="ex-tab" role="tab" id="tab-7" aria-controls="panel-7" aria-selected="false" tabindex="-1"><small>07</small><span data-i18n="n7.h">Bars and events</span></button>
+          <button class="ex-tab" role="tab" id="tab-8" aria-controls="panel-8" aria-selected="false" tabindex="-1"><small>08</small><span data-i18n="n8.h">Music artists</span></button>
+        </div>
+        <div class="ex-panels">
+          <div class="ex-panel" role="tabpanel" id="panel-1" aria-labelledby="tab-1">
+            <p class="ex-idea" data-i18n="n1.i">Your burger, giant, walking across the bridge.</p>
+            <p data-i18n="n1.p">Launches, the dish of the month and delivery ads, made without stopping the kitchen.</p>
+            <div class="ex-send"><h3 data-i18n="send">Send us</h3><ul data-i18n="n1.s"><li>Side photos of each dish, with the filling showing</li><li>Your logo and the menu</li><li>A short clip of the kitchen, if you have one</li></ul></div>
+          </div>
+          <div class="ex-panel" role="tabpanel" id="panel-2" aria-labelledby="tab-2" hidden>
+            <p class="ex-idea" data-i18n="n2.i">Morning light over the vines, landing on your bottle.</p>
+            <p data-i18n="n2.p">Atmosphere films that sell the stay, plus seasonal ads for guests from abroad.</p>
+            <div class="ex-send"><h3 data-i18n="send">Send us</h3><ul data-i18n="n2.s"><li>8 to 10 photos: rooms, pool, breakfast, view, front</li><li>Bottles with the label sharp, if you make wine</li><li>The season or offer you want to sell</li></ul></div>
+          </div>
+          <div class="ex-panel" role="tabpanel" id="panel-3" aria-labelledby="tab-3" hidden>
+            <p class="ex-idea" data-i18n="n3.i">One window, from sunrise to sunset.</p>
+            <p data-i18n="n3.p">Walkthroughs made from listing photos and virtual staging, always labeled as such.</p>
+            <div class="ex-send"><h3 data-i18n="send">Send us</h3><ul data-i18n="n3.s"><li>Every photo of the listing, plus the floor plan</li><li>The original tour video, if there is one</li><li>Address area and the selling points</li></ul></div>
+          </div>
+          <div class="ex-panel" role="tabpanel" id="panel-4" aria-labelledby="tab-4" hidden>
+            <p class="ex-idea" data-i18n="n4.i">Your ring on the sand of St. Tropez at golden hour.</p>
+            <p data-i18n="n4.p">Lookbooks in motion and products in places you never had to travel to.</p>
+            <div class="ex-send"><h3 data-i18n="send">Send us</h3><ul data-i18n="n4.s"><li>Full-body photos of each look on a clean background</li><li>Close-up photos of each piece from several angles</li><li>Written permission from the model</li></ul></div>
+          </div>
+          <div class="ex-panel" role="tabpanel" id="panel-5" aria-labelledby="tab-5" hidden>
+            <p class="ex-idea" data-i18n="n5.i">Your monthly offer, moving instead of static.</p>
+            <p data-i18n="n5.p">Clear treatment explainers and the promo of the month. Never fake results or before-and-afters.</p>
+            <div class="ex-send"><h3 data-i18n="send">Send us</h3><ul data-i18n="n5.s"><li>Photos of the clinic and the devices</li><li>Your approved treatment text</li><li>The promo list for the month</li></ul></div>
+          </div>
+          <div class="ex-panel" role="tabpanel" id="panel-6" aria-labelledby="tab-6" hidden>
+            <p class="ex-idea" data-i18n="n6.i">Beans raining over the city, landing in your cup.</p>
+            <p data-i18n="n6.p">Product loops for your site, launches and brand films for a relaunch.</p>
+            <div class="ex-send"><h3 data-i18n="send">Send us</h3><ul data-i18n="n6.s"><li>The product from every side, and the packaging</li><li>Brand colors and fonts</li><li>Old archive photos, for a heritage story</li></ul></div>
+          </div>
+          <div class="ex-panel" role="tabpanel" id="panel-7" aria-labelledby="tab-7" hidden>
+            <p class="ex-idea" data-i18n="n7.i">Your poster coming alive the week of the show.</p>
+            <p data-i18n="n7.p">Teasers for every night on the calendar and drinks in slow motion.</p>
+            <div class="ex-send"><h3 data-i18n="send">Send us</h3><ul data-i18n="n7.s"><li>The lineup and the posters you already have</li><li>Photos of the venue, full and empty</li><li>Each drink on a clean background</li></ul></div>
+          </div>
+          <div class="ex-panel" role="tabpanel" id="panel-8" aria-labelledby="tab-8" hidden>
+            <p class="ex-idea" data-i18n="n8.i">Your cover art, moving in a loop.</p>
+            <p data-i18n="n8.p">Visualizers, Spotify Canvas loops and release teasers at a price that fits every single.</p>
+            <div class="ex-send"><h3 data-i18n="send">Send us</h3><ul data-i18n="n8.s"><li>The cover in high resolution</li><li>3 or more sharp photos of you, from different angles</li><li>15 to 30 seconds of the track and visual references</li></ul></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="process" aria-labelledby="process-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="display" id="process-title" data-i18n="proc.title">How it works</h2>
+        <p class="lede" data-i18n="proc.lede">4 steps, all by message. You never need to film anything.</p>
+      </div>
+      <ol class="steps">
+        <li><h3 data-i18n="s1.h">Send your photos</h3><p data-i18n="s1.p">Product, place or people, plus your logo. The more angles you send, the closer the film gets to the real thing.</p></li>
+        <li><h3 data-i18n="s2.h">See a preview</h3><p data-i18n="s2.p">We send a low-resolution draft so you can judge the idea, the motion and the look.</p></li>
+        <li><h3 data-i18n="s3.h">Ask for changes</h3><p data-i18n="s3.p">One round of changes is included in every video.</p></li>
+        <li><h3 data-i18n="s4.h">Get it in 1080p</h3><p data-i18n="s4.p">The approved draft is rendered in full quality, vertical and ready to post.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="band" id="material" aria-labelledby="material-title">
+    <div class="wrap material">
+      <div>
+        <div class="section-head" style="margin-bottom:0">
+          <h2 class="display" id="material-title" data-i18n="mat.title">More material, better film</h2>
+          <p class="lede" data-i18n="mat.lede">A few good photos are enough to start. Depending on what you ask for, sending more makes a real difference to the result.</p>
+        </div>
+        <p class="note" data-i18n="mat.note">A video with a real person needs several sharp photos of their face from different angles. A product needs every side. A place needs wide shots and details. The more the AI can see, the more faithful the film.</p>
+      </div>
+      <div class="meter-box">
+        <div class="levels" role="group" aria-label="How much material">
+          <button type="button" data-level="1" aria-pressed="false" data-i18n="mat.l1">Minimum</button>
+          <button type="button" data-level="2" aria-pressed="true" data-i18n="mat.l2">Good</button>
+          <button type="button" data-level="3" aria-pressed="false" data-i18n="mat.l3">Best</button>
+        </div>
+        <div class="meter" aria-hidden="true"><i id="meter-fill" style="--fill:66%"></i></div>
+        <div class="meter-scale" aria-hidden="true"><span data-i18n="mat.s1">Faithful to an idea</span><span data-i18n="mat.s2">Faithful to the real thing</span></div>
+        <div class="lvl" data-lvl="1" hidden>
+          <ul data-i18n="mat.l1.list"><li>3 sharp photos of the product, the place or the dish</li><li>Your logo</li></ul>
+          <p class="result" data-i18n="mat.l1.r"><span>Best for:</span> one simple idea with one product or one dish.</p>
+        </div>
+        <div class="lvl" data-lvl="2">
+          <ul data-i18n="mat.l2.list"><li>8 to 10 photos from different angles</li><li>Logo, brand colors and fonts</li><li>Where the video will run and any text or offer that must appear</li><li>2 or 3 videos you like, as reference</li></ul>
+          <p class="result" data-i18n="mat.l2.r"><span>Best for:</span> most videos. Your product looks like itself and the style fits your brand.</p>
+        </div>
+        <div class="lvl" data-lvl="3" hidden>
+          <ul data-i18n="mat.l3.list"><li>Everything in Good</li><li>Short phone clips of the product, the place or the team</li><li>Your brand guide and past campaigns</li><li>Several angles of each face, with written permission</li><li>A script or the exact offer</li></ul>
+          <p class="result" data-i18n="mat.l3.r"><span>Best for:</span> people on camera, longer stories and campaigns that must match across many videos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="pricing" aria-labelledby="pricing-title">
+    <div class="wrap">
+      <div class="price-top">
+        <div class="section-head" style="margin-bottom:0">
+          <h2 class="display" id="pricing-title" data-i18n="price.title">Pricing</h2>
+          <p class="lede" data-i18n="price.lede">Vertical videos up to 15 seconds, in 1080p, with one round of changes per video.</p>
+        </div>
+        <div class="cur" role="group" aria-label="Currency">
+          <button type="button" data-cur="usd" aria-pressed="true">US$</button>
+          <button type="button" data-cur="eur" aria-pressed="false">€ EUR</button>
+        </div>
+      </div>
+
+      <div class="first">
+        <div>
+          <h3 data-i18n="first.h">Your first video</h3>
+          <p data-i18n="first.p">One 15-second video for new clients, one per company. If you order a pack within 14 days, what you paid counts toward it.</p>
+        </div>
+        <div class="first-buy">
+          <div class="amount"><s data-price="single"></s><span data-price="first"></span></div>
+          <a class="btn" href="#contact" data-plan="First video" data-i18n="first.cta">Get your first video</a>
+        </div>
+      </div>
+
+      <div class="plans">
+        <article class="plan">
+          <h3 data-i18n="p1.h">Single</h3>
+          <div class="amount" data-price="single"></div>
+          <div class="per" data-i18n="p1.per">1 video</div>
+          <ul><li data-i18n="p1.1">1 vertical video, 15 s</li><li data-i18n="inc.rev">1 round of changes</li></ul>
+          <a class="btn ghost" href="#contact" data-plan="Single" data-i18n="p.cta">Order this</a>
+        </article>
+        <article class="plan">
+          <h3 data-i18n="p3.h">Pack 3</h3>
+          <div class="amount" data-price="pack3"></div>
+          <div class="per"><span data-per="pack3"></span> <span data-i18n="per">per video</span></div>
+          <ul><li data-i18n="p3.1">3 vertical videos, 15 s each</li><li data-i18n="inc.rev">1 round of changes per video</li></ul>
+          <a class="btn ghost" href="#contact" data-plan="Pack 3" data-i18n="p.cta">Order this</a>
+        </article>
+        <article class="plan star">
+          <span class="badge" data-i18n="p5.badge">Most chosen</span>
+          <h3 data-i18n="p5.h">Pack 5</h3>
+          <div class="amount" data-price="pack5"></div>
+          <div class="per"><span data-per="pack5"></span> <span data-i18n="per">per video</span></div>
+          <ul><li data-i18n="p5.1">5 vertical videos, 15 s each</li><li data-i18n="p5.2">1 horizontal version free</li><li data-i18n="inc.rev">1 round of changes per video</li></ul>
+          <a class="btn" href="#contact" data-plan="Pack 5" data-i18n="p.cta">Order this</a>
+        </article>
+        <article class="plan">
+          <h3 data-i18n="p10.h">Pack 10</h3>
+          <div class="amount" data-price="pack10"></div>
+          <div class="per"><span data-per="pack10"></span> <span data-i18n="per">per video</span></div>
+          <ul><li data-i18n="p10.1">10 vertical videos, 15 s each</li><li data-i18n="p10.2">2 horizontal versions free</li><li data-i18n="inc.rev">1 round of changes per video</li></ul>
+          <a class="btn ghost" href="#contact" data-plan="Pack 10" data-i18n="p.cta">Order this</a>
+        </article>
+      </div>
+
+      <div class="studio">
+        <div>
+          <h3 data-i18n="studio.h">Studio, monthly</h3>
+          <p data-i18n="studio.p">For brands that post every week: 10 videos a month, a 30-second brand film, dubbing in 2 languages and 48-hour delivery. Price on request.</p>
+        </div>
+        <a class="btn ghost" href="#contact" data-plan="Studio" data-i18n="studio.cta">Ask about Studio</a>
+      </div>
+
+      <div class="small-tables">
+        <div>
+          <h3 data-i18n="long.h">Longer videos</h3>
+          <div class="tbl"><table>
+            <thead><tr><th data-i18n="long.c1">Length</th><th class="num" data-i18n="long.c2">Price</th></tr></thead>
+            <tbody>
+              <tr><td>15 s</td><td class="num" data-price="l15"></td></tr>
+              <tr><td>30 s</td><td class="num" data-price="l30"></td></tr>
+              <tr><td>45 s</td><td class="num" data-price="l45"></td></tr>
+              <tr><td>60 s</td><td class="num" data-price="l60"></td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div>
+          <h3 data-i18n="ext.h">Extras</h3>
+          <div class="tbl"><table>
+            <tbody>
+              <tr><td data-i18n="ext.1">Extra round of changes</td><td class="num" data-price="xrev"></td></tr>
+              <tr><td data-i18n="ext.2">Horizontal or square version</td><td class="num" data-price="xfmt"></td></tr>
+              <tr><td data-i18n="ext.3">Version in another language</td><td class="num" data-price="xlang"></td></tr>
+              <tr><td data-i18n="ext.4">Delivery in 48 hours</td><td class="num">+30%</td></tr>
+              <tr><td data-i18n="ext.5">Same pack every month</td><td class="num">−10%</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+      <p class="fine" data-i18n="price.fine">Prices per order. Payment in advance, by card or international bank transfer. Clients in Brazil pay in reais; ask for the local price.</p>
+    </div>
+  </section>
+
+  <section class="band" id="faq" aria-labelledby="faq-title">
+    <div class="wrap faq">
+      <div class="section-head" style="align-content:start">
+        <h2 class="display" id="faq-title" data-i18n="faq.title">Questions</h2>
+        <p class="lede" data-i18n="faq.lede">What clients usually ask before the first video.</p>
+      </div>
+      <div>
+        <details><summary data-i18n="q1">Do I need to film anything?</summary><p data-i18n="a1">No. We work from photos you already have: product shots, photos of your place, your logo. A short phone clip helps but is never required. Depending on the idea, more material gives a better result: see <a href="#material">what to send</a>.</p></details>
+        <details><summary data-i18n="q2">How long does it take?</summary><p data-i18n="a2">You see a preview within a few days and most videos are delivered within a week. Need it faster? Delivery in 48 hours costs 30% more.</p></details>
+        <details><summary data-i18n="q3">What if I don’t like the preview?</summary><p data-i18n="a3">That is what the preview is for. Tell us what to change before anything is rendered in full quality. One round of changes is included; extra rounds are listed in the extras.</p></details>
+        <details><summary data-i18n="q4">Can I use the videos in paid ads?</summary><p data-i18n="a4">Yes. The final files are yours to post on your channels and to run as ads.</p></details>
+        <details><summary data-i18n="q5">Will it look fake?</summary><p data-i18n="a5">We direct every shot by hand and pick the best of several takes. Some ideas are meant to look impossible, like a giant burger on a bridge; your product itself stays faithful to the real one.</p></details>
+        <details><summary data-i18n="q6">Can you use real people or faces?</summary><p data-i18n="a6">Only with written permission from the person in the photo. For clinics we never generate skin results or before-and-after images.</p></details>
+        <details><summary data-i18n="q7">Which formats do I get?</summary><p data-i18n="a7">Vertical 9:16 in 1080p, ready for Reels, TikTok and Shorts. Horizontal or square versions are available as extras, and packs include some for free.</p></details>
+        <details><summary data-i18n="q8">How do I pay?</summary><p data-i18n="a8">In US dollars or euros, in advance, by card or international bank transfer. The price of your first video counts toward a pack if you order one within 14 days.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="contact" aria-labelledby="contact-title">
+    <div class="wrap contact-grid">
+      <div>
+        <div class="section-head" style="margin-bottom:0">
+          <h2 class="display" id="contact-title" data-i18n="c.title">Start with one video</h2>
+          <p class="lede" data-i18n="c.lede">Tell us about your business and what you have in mind. We reply by e-mail. Prefer Instagram? Send us a DM.</p>
+        </div>
+        <div class="channels">
+          <a class="channel" href="https://ig.me/m/markes.studio?text=FILM" target="_blank" rel="noopener">
+            <div><span>Instagram</span><strong translate="no">@markes.studio</strong></div>
+            <span data-i18n="c.open">Send a DM</span>
+          </a>
+          <div class="channel">
+            <div><span data-i18n="c.email">E-mail</span><strong id="email-addr" translate="no">markestudio.official@gmail.com</strong></div>
+            <div class="ch-actions">
+              <button type="button" class="mini" id="copy-email" data-i18n="c.copy">Copy</button>
+              <a class="mini" href="mailto:markestudio.official@gmail.com" data-i18n="c.write">Write</a>
+            </div>
+          </div>
+          <p class="status" id="email-status" aria-live="polite"></p>
+        </div>
+      </div>
+      <form id="brief" name="brief" method="POST" novalidate>
+        <input type="hidden" name="form-name" value="brief">
+        <input type="hidden" name="language" id="f-lang" value="en">
+        <p hidden><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+        <div class="row2">
+          <label for="f-name"><span data-i18n="f.name">Your name</span><input id="f-name" name="name" autocomplete="name" placeholder="Ana Souza…" required aria-describedby="e-name"><span class="err" id="e-name" hidden></span></label>
+          <label for="f-email"><span data-i18n="f.email">Your e-mail</span><input id="f-email" name="email" type="email" inputmode="email" autocomplete="email" spellcheck="false" placeholder="ana@cafelumen.com…" required aria-describedby="e-email"><span class="err" id="e-email" hidden></span></label>
+        </div>
+        <div class="row2">
+          <label for="f-biz"><span data-i18n="f.biz">Business</span><input id="f-biz" name="organization" autocomplete="organization" placeholder="Café Lumen…"></label>
+          <label for="f-link"><span data-i18n="f.link">Instagram or website</span><input id="f-link" name="link" inputmode="url" autocomplete="url" spellcheck="false" placeholder="instagram.com/yourbrand…"></label>
+        </div>
+        <label for="f-plan"><span data-i18n="f.plan">What you want</span>
+          <select id="f-plan" name="plan" autocomplete="off">
+            <option value="First video" data-i18n="o.first">First video</option>
+            <option value="Single" data-i18n="o.single">Single</option>
+            <option value="Pack 3">Pack 3</option>
+            <option value="Pack 5">Pack 5</option>
+            <option value="Pack 10">Pack 10</option>
+            <option value="Studio" data-i18n="o.studio">Studio, monthly</option>
+          </select>
+        </label>
+        <label for="f-idea"><span data-i18n="f.idea">Your idea, in a few words</span><textarea id="f-idea" name="idea" autocomplete="off" data-i18n-ph="f.idea.ph" placeholder="A launch video for our new dessert, playful, for Reels…"></textarea></label>
+        <div class="out-actions">
+          <button class="btn" type="submit" id="send-btn" data-i18n="f.send">Send brief</button>
+          <p class="status" id="status" aria-live="polite"></p>
+        </div>
+        <details class="alt" id="alt">
+          <summary data-i18n="f.alt">Prefer Instagram or e-mail? Copy your message</summary>
+          <div class="out">
+            <label for="f-out"><span data-i18n="f.out">Your message</span><textarea id="f-out" readonly></textarea></label>
+            <div class="out-actions">
+              <button class="btn ghost" type="button" id="copy-btn" data-i18n="f.copy">Copy message</button>
+              <a class="btn ghost" id="ig-btn" href="https://ig.me/m/markes.studio?text=FILM" target="_blank" rel="noopener" data-i18n="f.ig">Send on Instagram</a>
+            </div>
+            <p class="status" id="copy-status" aria-live="polite"></p>
+          </div>
+        </details>
+      </form>
+      <div class="sent" id="sent" hidden tabindex="-1">
+        <h3 data-i18n="sent.h">Brief sent</h3>
+        <p data-i18n="sent.p">Thanks. We’ll read it and reply by e-mail with the next steps.</p>
+        <button class="btn ghost" type="button" id="again" data-i18n="sent.again">Send another brief</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap" style="display:block">
+    <div class="foot-mark" aria-hidden="true" translate="no">Markes Studio</div>
+  </div>
+  <div class="wrap">
+    <span data-i18n="foot.1">Cinematic AI videos for brands. Rio de Janeiro, working worldwide.</span>
+    <span><a href="https://ig.me/m/markes.studio?text=FILM" target="_blank" rel="noopener">@markes.studio</a> &nbsp; markestudio.official@gmail.com</span>
+    <span>© 2026 Markes Studio</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var PRICES = {
+    usd: { first: 53, single: 129, pack3: 309, pack5: 409, pack10: 709, l15: 129, l30: 209, l45: 289, l60: 359, xrev: 49, xfmt: 35, xlang: 35 },
+    eur: { first: 49, single: 119, pack3: 289, pack5: 379, pack10: 669, l15: 119, l30: 199, l45: 279, l60: 339, xrev: 45, xfmt: 32, xlang: 32 }
+  };
+  var COUNT = { pack3: 3, pack5: 5, pack10: 10 };
+  var I18N = {
+    pt: {
+      "skip": "Pular para o conteúdo",
+      "nav.work": "Trabalhos", "nav.services": "O que fazemos", "nav.process": "Como funciona", "nav.pricing": "Preços", "nav.faq": "Dúvidas", "nav.contact": "Contato",
+      "cta.short": "Peça seu primeiro vídeo",
+      "hero.title": "Filmes que não dava para gravar.",
+      "hero.lede": "Vídeos cinematográficos com IA para marcas. Mande as fotos que você já tem e receba filmes verticais em 1080p para Reels, TikTok e anúncios. Sem equipe, sem gravação, sem limite para o que a câmera pode ver.",
+      "hero.cta1": "Primeiro vídeo por", "hero.cta2": "Ver os trabalhos",
+      "looks.label": "Experimente outro visual. O mesmo estúdio, qualquer estilo:",
+      "t1": "Um hambúrguer atravessando a Ponte 25 de Abril", "t2": "Um anel nascendo do ouro derretido", "t3": "Do nascer ao pôr do sol numa janela, em 10 segundos",
+      "t4": "Sua garrafa pousando nas vinhas do Douro", "t5": "Um latte que vira o seu logo", "t6": "Um buquê abrindo do botão à flor", "t7": "Um apartamento vazio, decorado num só plano",
+      "work.title": "Trabalhos",
+      "work.lede": "Cada quadro abaixo foi gerado com IA e dirigido à mão. Primeiro, um anúncio feito só com fotos do produto. Depois, um curta com estética própria.",
+      "ba.title": "Entram 3 fotos do produto. Sai 1 anúncio.",
+      "ba.in": "O que recebemos", "ba.c1": "Frente", "ba.c2": "Lado", "ba.c3": "Costas",
+      "ba.inp": "3 fotos comuns de produto, em fundo branco. Sem gravação, sem cenário, sem atores.",
+      "ba.out": "O que entregamos",
+      "ba.cap": "Spec ad em uma balada. 7 segundos, 1080p, 16:9. A garrafa, o rótulo e o vidro seguem fiéis às fotos; a balada, as pessoas e a luz são novas.",
+      "ba.legal": "Conceito feito para mostrar o processo. Não foi encomendado pela Johnnie Walker ou pela Diageo, nem tem vínculo com elas; o produto e as imagens pertencem ao dono da marca.",
+      "work.case": "Um visual sombrio para um artista: luz de sódio, granulado de filme, uma torre nas nuvens e uma figura caminhando para o brilho. Mostra o que mais importa para nós: luz, textura e uma história que se sustenta por 20 segundos.",
+      "work.f1": "Formato", "work.f1v": "Visualizer musical, 20 segundos", "work.f2": "Estética", "work.f2v": "Filme 35mm, luz âmbar, granulado", "work.f3": "Feito com", "work.f3v": "Modelos de vídeo com IA, editado pela Markes Studio",
+      "svc.title": "O que fazemos, e para quem",
+      "svc.lede": "Qualquer nicho, qualquer estética. Escolha o seu tipo de negócio para ver o vídeo que faríamos e o que nos mandar para ele.",
+      "n1.h": "Restaurantes", "n2.h": "Hotéis e vinícolas", "n3.h": "Imóveis", "n4.h": "Moda e joias", "n5.h": "Clínicas estéticas", "n6.h": "Cafés e produtos", "n7.h": "Bares e eventos", "n8.h": "Artistas musicais",
+      "send": "Mande para nós",
+      "n1.i": "Seu hambúrguer, gigante, atravessando a ponte.",
+      "n1.p": "Lançamentos, o prato do mês e anúncios de delivery, feitos sem parar a cozinha.",
+      "n1.s": "<li>Fotos de lado de cada prato, com o recheio aparecendo</li><li>Seu logo e o cardápio</li><li>Um vídeo curto da cozinha, se tiver</li>",
+      "n2.i": "A luz da manhã sobre as vinhas, pousando na sua garrafa.",
+      "n2.p": "Filmes de atmosfera que vendem a estadia, e anúncios de temporada para hóspedes de fora.",
+      "n2.s": "<li>8 a 10 fotos: quartos, piscina, café da manhã, vista, fachada</li><li>Garrafas com o rótulo nítido, se você faz vinho</li><li>A temporada ou a oferta que quer vender</li>",
+      "n3.i": "Uma janela, do nascer ao pôr do sol.",
+      "n3.p": "Tours feitos com as fotos do anúncio e decoração virtual, sempre identificada como tal.",
+      "n3.s": "<li>Todas as fotos do imóvel, e a planta</li><li>O vídeo original do tour, se existir</li><li>O bairro e os diferenciais</li>",
+      "n4.i": "Seu anel na areia de St. Tropez, no fim de tarde.",
+      "n4.p": "Lookbooks em movimento e produtos em lugares para onde você nunca precisou viajar.",
+      "n4.s": "<li>Fotos de corpo inteiro de cada look, em fundo limpo</li><li>Fotos de perto de cada peça, de vários ângulos</li><li>Autorização por escrito da modelo</li>",
+      "n5.i": "Sua oferta do mês, em movimento em vez de parada.",
+      "n5.p": "Explicações claras dos tratamentos e a promoção do mês. Nunca resultados falsos nem antes e depois.",
+      "n5.s": "<li>Fotos da clínica e dos aparelhos</li><li>O texto dos tratamentos já aprovado</li><li>A lista de promoções do mês</li>",
+      "n6.i": "Grãos chovendo sobre a cidade, caindo na sua xícara.",
+      "n6.p": "Loops de produto para o seu site, lançamentos e filmes de marca para um relançamento.",
+      "n6.s": "<li>O produto de todos os lados, e a embalagem</li><li>Cores e fontes da marca</li><li>Fotos antigas de arquivo, para uma história de tradição</li>",
+      "n7.i": "Seu cartaz ganhando vida na semana do show.",
+      "n7.p": "Teasers para cada noite da agenda e drinks em câmera lenta.",
+      "n7.s": "<li>A programação e os cartazes que você já tem</li><li>Fotos da casa, cheia e vazia</li><li>Cada drink em fundo limpo</li>",
+      "n8.i": "A capa do seu single, se mexendo em loop.",
+      "n8.p": "Visualizers, Canvas do Spotify e teasers de lançamento por um preço que cabe em cada single.",
+      "n8.s": "<li>A capa em alta resolução</li><li>3 ou mais fotos nítidas suas, de ângulos diferentes</li><li>15 a 30 segundos da faixa e referências visuais</li>",
+      "proc.title": "Como funciona",
+      "proc.lede": "4 passos, tudo por mensagem. Você nunca precisa gravar nada.",
+      "s1.h": "Mande suas fotos", "s1.p": "Produto, lugar ou pessoas, mais o seu logo. Quanto mais ângulos, mais o filme se aproxima do real.",
+      "s2.h": "Veja uma prévia", "s2.p": "Mandamos um rascunho em baixa resolução para você avaliar a ideia, o movimento e a estética.",
+      "s3.h": "Peça ajustes", "s3.p": "Uma rodada de ajustes está incluída em cada vídeo.",
+      "s4.h": "Receba em 1080p", "s4.p": "O rascunho aprovado é finalizado em alta qualidade, vertical e pronto para postar.",
+      "mat.title": "Mais material, filme melhor",
+      "mat.lede": "Poucas fotos boas já bastam para começar. Dependendo do pedido, mandar mais material faz uma diferença real no resultado.",
+      "mat.note": "Um vídeo com uma pessoa real precisa de várias fotos nítidas do rosto, de ângulos diferentes. Um produto precisa de todos os lados. Um lugar precisa de planos abertos e detalhes. Quanto mais a IA consegue ver, mais fiel fica o filme.",
+      "mat.l1": "Mínimo", "mat.l2": "Bom", "mat.l3": "Ideal",
+      "mat.s1": "Fiel a uma ideia", "mat.s2": "Fiel à realidade",
+      "mat.l1.list": "<li>3 fotos nítidas do produto, do lugar ou do prato</li><li>Seu logo</li>",
+      "mat.l1.r": "<span>Ideal para:</span> uma ideia simples, com um produto ou um prato.",
+      "mat.l2.list": "<li>8 a 10 fotos de ângulos diferentes</li><li>Logo, cores e fontes da marca</li><li>Onde o vídeo vai rodar e qualquer texto ou oferta que precise aparecer</li><li>2 ou 3 vídeos de que você gosta, como referência</li>",
+      "mat.l2.r": "<span>Ideal para:</span> a maioria dos vídeos. Seu produto fica parecido com ele mesmo e o estilo combina com a sua marca.",
+      "mat.l3.list": "<li>Tudo do nível Bom</li><li>Vídeos curtos de celular do produto, do lugar ou da equipe</li><li>Seu manual de marca e campanhas anteriores</li><li>Vários ângulos de cada rosto, com autorização por escrito</li><li>Um roteiro ou a oferta exata</li>",
+      "mat.l3.r": "<span>Ideal para:</span> pessoas em cena, histórias mais longas e campanhas que precisam combinar em vários vídeos.",
+      "price.title": "Preços",
+      "price.lede": "Vídeos verticais de até 15 segundos, em 1080p, com uma rodada de ajustes por vídeo.",
+      "first.h": "Seu primeiro vídeo",
+      "first.p": "Um vídeo de 15 segundos para clientes novos, um por empresa. Se você fechar um pacote em até 14 dias, o valor pago vira crédito nele.",
+      "first.cta": "Peça seu primeiro vídeo",
+      "p1.h": "Avulso", "p1.per": "1 vídeo", "p1.1": "1 vídeo vertical, 15 s", "inc.rev": "1 rodada de ajustes por vídeo", "p.cta": "Quero este",
+      "p3.h": "Pack 3", "per": "por vídeo", "p3.1": "3 vídeos verticais, 15 s cada",
+      "p5.badge": "Mais escolhido", "p5.h": "Pack 5", "p5.1": "5 vídeos verticais, 15 s cada", "p5.2": "1 versão horizontal de brinde",
+      "p10.h": "Pack 10", "p10.1": "10 vídeos verticais, 15 s cada", "p10.2": "2 versões horizontais de brinde",
+      "studio.h": "Studio, mensal",
+      "studio.p": "Para marcas que postam toda semana: 10 vídeos por mês, um filme de marca de 30 segundos, dublagem em 2 idiomas e entrega em 48 horas. Preço sob consulta.",
+      "studio.cta": "Saber mais sobre o Studio",
+      "long.h": "Vídeos mais longos", "long.c1": "Duração", "long.c2": "Preço",
+      "ext.h": "Extras", "ext.1": "Rodada extra de ajustes", "ext.2": "Versão horizontal ou quadrada", "ext.3": "Versão em outro idioma", "ext.4": "Entrega em 48 horas", "ext.5": "Mesmo pacote todo mês",
+      "price.fine": "Preços por pedido. Pagamento adiantado, por cartão ou transferência internacional. Clientes no Brasil pagam em reais; peça o preço local.",
+      "faq.title": "Dúvidas", "faq.lede": "O que os clientes costumam perguntar antes do primeiro vídeo.",
+      "q1": "Preciso gravar alguma coisa?",
+      "a1": "Não. Trabalhamos com as fotos que você já tem: fotos do produto, do seu espaço, o seu logo. Um vídeo curto de celular ajuda, mas nunca é obrigatório. Dependendo da ideia, mais material dá um resultado melhor: veja <a href=\"#material\">o que mandar</a>.",
+      "q2": "Quanto tempo demora?",
+      "a2": "Você vê uma prévia em poucos dias, e a maioria dos vídeos é entregue em até uma semana. Precisa mais rápido? A entrega em 48 horas custa 30% a mais.",
+      "q3": "E se eu não gostar da prévia?",
+      "a3": "É para isso que existe a prévia. Diga o que mudar antes de qualquer coisa ser finalizada em alta qualidade. Uma rodada de ajustes está incluída; rodadas extras estão nos extras.",
+      "q4": "Posso usar os vídeos em anúncios pagos?",
+      "a4": "Pode. Os arquivos finais são seus para postar nos seus canais e rodar como anúncio.",
+      "q5": "Vai parecer falso?",
+      "a5": "Dirigimos cada cena à mão e escolhemos a melhor entre várias tentativas. Algumas ideias são feitas para parecer impossíveis, como um hambúrguer gigante numa ponte; o seu produto continua fiel ao de verdade.",
+      "q6": "Vocês podem usar pessoas ou rostos reais?",
+      "a6": "Só com autorização por escrito da pessoa na foto. Para clínicas, nunca geramos resultados de pele nem imagens de antes e depois.",
+      "q7": "Em que formatos eu recebo?",
+      "a7": "Vertical 9:16 em 1080p, pronto para Reels, TikTok e Shorts. Versões horizontais ou quadradas estão nos extras, e os pacotes já trazem algumas de brinde.",
+      "q8": "Como eu pago?",
+      "a8": "Em dólar ou euro, adiantado, por cartão ou transferência internacional. O valor do primeiro vídeo vira crédito num pacote se você fechar em até 14 dias.",
+      "c.title": "Comece com um vídeo",
+      "c.lede": "Conte sobre o seu negócio e o que você tem em mente. Respondemos por e-mail. Prefere Instagram? Mande uma DM.",
+      "c.open": "Mandar DM", "c.email": "E-mail", "c.copy": "Copiar", "c.write": "Escrever",
+      "f.name": "Seu nome", "f.biz": "Empresa", "f.plan": "O que você quer", "o.first": "Primeiro vídeo", "o.single": "Avulso", "o.studio": "Studio, mensal",
+      "f.link": "Instagram ou site", "f.idea": "Sua ideia, em poucas palavras", "f.idea.ph": "Um vídeo de lançamento para a nossa sobremesa nova, divertido, para Reels…",
+      "f.email": "Seu e-mail", "f.send": "Enviar briefing", "f.alt": "Prefere Instagram ou e-mail? Copie sua mensagem",
+      "sent.h": "Briefing enviado", "sent.p": "Obrigado. Vamos ler e responder por e-mail com os próximos passos.", "sent.again": "Enviar outro briefing",
+      "f.out": "Sua mensagem", "f.copy": "Copiar mensagem", "f.ig": "Mandar no Instagram",
+      "foot.1": "Vídeos cinematográficos com IA para marcas. Do Rio de Janeiro para o mundo."
+    },
+    es: {
+      "skip": "Saltar al contenido",
+      "nav.work": "Trabajos", "nav.services": "Qué hacemos", "nav.process": "Cómo funciona", "nav.pricing": "Precios", "nav.faq": "Preguntas", "nav.contact": "Contacto",
+      "cta.short": "Pide tu primer video",
+      "hero.title": "Películas imposibles de filmar.",
+      "hero.lede": "Videos cinematográficos con IA para marcas. Envía las fotos que ya tienes y recibe películas verticales en 1080p para Reels, TikTok y anuncios. Sin equipo, sin rodaje, sin límites para lo que la cámara puede ver.",
+      "hero.cta1": "Primer video por", "hero.cta2": "Ver los trabajos",
+      "looks.label": "Prueba otro estilo. El mismo estudio, cualquier estética:",
+      "t1": "Una hamburguesa cruzando el Ponte 25 de Abril", "t2": "Un anillo naciendo del oro fundido", "t3": "Del amanecer al atardecer en una ventana, en 10 segundos",
+      "t4": "Tu botella aterrizando entre los viñedos del Duero", "t5": "Un latte que se convierte en tu logo", "t6": "Un ramo que se abre de botón a flor", "t7": "Un departamento vacío, amueblado en una sola toma",
+      "work.title": "Trabajos",
+      "work.lede": "Cada fotograma fue generado con IA y dirigido a mano. Primero, un anuncio hecho solo con fotos del producto. Después, un corto con estética propia.",
+      "ba.title": "Entran 3 fotos del producto. Sale 1 anuncio.",
+      "ba.in": "Lo que recibimos", "ba.c1": "Frente", "ba.c2": "Lado", "ba.c3": "Reverso",
+      "ba.inp": "3 fotos comunes de producto sobre fondo blanco. Sin rodaje, sin set, sin actores.",
+      "ba.out": "Lo que entregamos",
+      "ba.cap": "Spec ad en una discoteca. 7 segundos, 1080p, 16:9. La botella, la etiqueta y el vidrio se mantienen fieles a las fotos; la discoteca, la gente y la luz son nuevas.",
+      "ba.legal": "Concepto hecho para mostrar el proceso. No fue encargado por Johnnie Walker ni Diageo, ni tiene relación con ellas; el producto y sus imágenes pertenecen a su dueño.",
+      "work.case": "Un visual oscuro para un artista: luz de sodio, grano de película, una torre entre las nubes y una figura caminando hacia el resplandor. Muestra lo que más nos importa: luz, textura y una historia que se sostiene durante 20 segundos.",
+      "work.f1": "Formato", "work.f1v": "Visualizer musical, 20 segundos", "work.f2": "Estética", "work.f2v": "Película 35mm, luz ámbar, grano", "work.f3": "Hecho con", "work.f3v": "Modelos de video con IA, editado por Markes Studio",
+      "svc.title": "Qué hacemos, y para quién",
+      "svc.lede": "Cualquier nicho, cualquier estética. Elige tu tipo de negocio para ver el video que haríamos y qué enviarnos para hacerlo.",
+      "n1.h": "Restaurantes", "n2.h": "Hoteles y bodegas", "n3.h": "Inmobiliarias", "n4.h": "Moda y joyería", "n5.h": "Clínicas estéticas", "n6.h": "Café y productos", "n7.h": "Bares y eventos", "n8.h": "Artistas musicales",
+      "send": "Envíanos",
+      "n1.i": "Tu hamburguesa, gigante, cruzando el puente.",
+      "n1.p": "Lanzamientos, el plato del mes y anuncios de delivery, hechos sin parar la cocina.",
+      "n1.s": "<li>Fotos de lado de cada plato, con el relleno a la vista</li><li>Tu logo y el menú</li><li>Un video corto de la cocina, si lo tienes</li>",
+      "n2.i": "La luz de la mañana sobre los viñedos, posándose en tu botella.",
+      "n2.p": "Películas de atmósfera que venden la estadía, y anuncios de temporada para huéspedes de fuera.",
+      "n2.s": "<li>8 a 10 fotos: habitaciones, piscina, desayuno, vista, fachada</li><li>Botellas con la etiqueta nítida, si haces vino</li><li>La temporada u oferta que quieres vender</li>",
+      "n3.i": "Una ventana, del amanecer al atardecer.",
+      "n3.p": "Recorridos hechos con las fotos del anuncio y amueblado virtual, siempre indicado como tal.",
+      "n3.s": "<li>Todas las fotos de la propiedad, y el plano</li><li>El video original del recorrido, si existe</li><li>La zona y los puntos fuertes</li>",
+      "n4.i": "Tu anillo en la arena de St. Tropez, en la hora dorada.",
+      "n4.p": "Lookbooks en movimiento y productos en lugares a los que nunca tuviste que viajar.",
+      "n4.s": "<li>Fotos de cuerpo entero de cada look, sobre fondo limpio</li><li>Fotos de cerca de cada pieza, desde varios ángulos</li><li>Autorización por escrito de la modelo</li>",
+      "n5.i": "Tu oferta del mes, en movimiento en lugar de estática.",
+      "n5.p": "Explicaciones claras de los tratamientos y la promoción del mes. Nunca resultados falsos ni antes y después.",
+      "n5.s": "<li>Fotos de la clínica y de los equipos</li><li>El texto de los tratamientos ya aprobado</li><li>La lista de promociones del mes</li>",
+      "n6.i": "Granos lloviendo sobre la ciudad, cayendo en tu taza.",
+      "n6.p": "Loops de producto para tu web, lanzamientos y películas de marca para un relanzamiento.",
+      "n6.s": "<li>El producto por todos sus lados, y el empaque</li><li>Colores y tipografías de la marca</li><li>Fotos antiguas de archivo, para una historia de tradición</li>",
+      "n7.i": "Tu cartel cobrando vida la semana del show.",
+      "n7.p": "Teasers para cada noche de la agenda y tragos en cámara lenta.",
+      "n7.s": "<li>La programación y los carteles que ya tienes</li><li>Fotos del local, lleno y vacío</li><li>Cada trago sobre fondo limpio</li>",
+      "n8.i": "La portada de tu single, moviéndose en loop.",
+      "n8.p": "Visualizers, Canvas de Spotify y teasers de lanzamiento a un precio que cabe en cada single.",
+      "n8.s": "<li>La portada en alta resolución</li><li>3 o más fotos nítidas tuyas, desde distintos ángulos</li><li>15 a 30 segundos del tema y referencias visuales</li>",
+      "proc.title": "Cómo funciona",
+      "proc.lede": "4 pasos, todo por mensaje. Nunca tienes que filmar nada.",
+      "s1.h": "Envía tus fotos", "s1.p": "Producto, lugar o personas, más tu logo. Cuantos más ángulos envíes, más se acerca la película a lo real.",
+      "s2.h": "Mira una vista previa", "s2.p": "Te enviamos un borrador en baja resolución para que evalúes la idea, el movimiento y la estética.",
+      "s3.h": "Pide cambios", "s3.p": "Cada video incluye una ronda de cambios.",
+      "s4.h": "Recíbelo en 1080p", "s4.p": "El borrador aprobado se termina en alta calidad, vertical y listo para publicar.",
+      "mat.title": "Más material, mejor película",
+      "mat.lede": "Unas pocas fotos buenas bastan para empezar. Según lo que pidas, enviar más material hace una diferencia real en el resultado.",
+      "mat.note": "Un video con una persona real necesita varias fotos nítidas de su cara desde distintos ángulos. Un producto necesita todos sus lados. Un lugar necesita planos abiertos y detalles. Cuanto más ve la IA, más fiel es la película.",
+      "mat.l1": "Mínimo", "mat.l2": "Bueno", "mat.l3": "Ideal",
+      "mat.s1": "Fiel a una idea", "mat.s2": "Fiel a la realidad",
+      "mat.l1.list": "<li>3 fotos nítidas del producto, el lugar o el plato</li><li>Tu logo</li>",
+      "mat.l1.r": "<span>Ideal para:</span> una idea simple, con un producto o un plato.",
+      "mat.l2.list": "<li>8 a 10 fotos desde distintos ángulos</li><li>Logo, colores y tipografías de la marca</li><li>Dónde se usará el video y cualquier texto u oferta que deba aparecer</li><li>2 o 3 videos que te gusten, como referencia</li>",
+      "mat.l2.r": "<span>Ideal para:</span> la mayoría de los videos. Tu producto se ve como es y el estilo encaja con tu marca.",
+      "mat.l3.list": "<li>Todo lo del nivel Bueno</li><li>Videos cortos de celular del producto, el lugar o el equipo</li><li>Tu manual de marca y campañas anteriores</li><li>Varios ángulos de cada cara, con autorización por escrito</li><li>Un guion o la oferta exacta</li>",
+      "mat.l3.r": "<span>Ideal para:</span> personas en cámara, historias más largas y campañas que deben verse iguales en muchos videos.",
+      "price.title": "Precios",
+      "price.lede": "Videos verticales de hasta 15 segundos, en 1080p, con una ronda de cambios por video.",
+      "first.h": "Tu primer video",
+      "first.p": "Un video de 15 segundos para clientes nuevos, uno por empresa. Si contratas un pack en los próximos 14 días, lo que pagaste se descuenta del pack.",
+      "first.cta": "Pide tu primer video",
+      "p1.h": "Individual", "p1.per": "1 video", "p1.1": "1 video vertical, 15 s", "inc.rev": "1 ronda de cambios por video", "p.cta": "Lo quiero",
+      "p3.h": "Pack 3", "per": "por video", "p3.1": "3 videos verticales, 15 s cada uno",
+      "p5.badge": "El más elegido", "p5.h": "Pack 5", "p5.1": "5 videos verticales, 15 s cada uno", "p5.2": "1 versión horizontal de regalo",
+      "p10.h": "Pack 10", "p10.1": "10 videos verticales, 15 s cada uno", "p10.2": "2 versiones horizontales de regalo",
+      "studio.h": "Studio, mensual",
+      "studio.p": "Para marcas que publican cada semana: 10 videos al mes, una película de marca de 30 segundos, doblaje en 2 idiomas y entrega en 48 horas. Precio a consultar.",
+      "studio.cta": "Consultar por Studio",
+      "long.h": "Videos más largos", "long.c1": "Duración", "long.c2": "Precio",
+      "ext.h": "Extras", "ext.1": "Ronda extra de cambios", "ext.2": "Versión horizontal o cuadrada", "ext.3": "Versión en otro idioma", "ext.4": "Entrega en 48 horas", "ext.5": "El mismo pack cada mes",
+      "price.fine": "Precios por pedido. Pago por adelantado, con tarjeta o transferencia internacional. Los clientes en Brasil pagan en reales; pide el precio local.",
+      "faq.title": "Preguntas", "faq.lede": "Lo que los clientes suelen preguntar antes del primer video.",
+      "q1": "¿Tengo que filmar algo?",
+      "a1": "No. Trabajamos con las fotos que ya tienes: fotos del producto, de tu local, tu logo. Un video corto de celular ayuda, pero nunca es obligatorio. Según la idea, más material da un mejor resultado: mira <a href=\"#material\">qué enviar</a>.",
+      "q2": "¿Cuánto tarda?",
+      "a2": "Ves una vista previa en pocos días y la mayoría de los videos se entregan en una semana. ¿Lo necesitas antes? La entrega en 48 horas cuesta un 30% más.",
+      "q3": "¿Y si no me gusta la vista previa?",
+      "a3": "Para eso está. Dinos qué cambiar antes de que nada se termine en alta calidad. Incluye una ronda de cambios; las rondas extra están en los extras.",
+      "q4": "¿Puedo usar los videos en anuncios pagados?",
+      "a4": "Sí. Los archivos finales son tuyos para publicarlos en tus canales y usarlos como anuncios.",
+      "q5": "¿Se verá falso?",
+      "a5": "Dirigimos cada plano a mano y elegimos la mejor de varias tomas. Algunas ideas están hechas para verse imposibles, como una hamburguesa gigante sobre un puente; tu producto se mantiene fiel al real.",
+      "q6": "¿Pueden usar personas o caras reales?",
+      "a6": "Solo con autorización por escrito de la persona de la foto. Para clínicas nunca generamos resultados en la piel ni imágenes de antes y después.",
+      "q7": "¿En qué formatos lo recibo?",
+      "a7": "Vertical 9:16 en 1080p, listo para Reels, TikTok y Shorts. Las versiones horizontales o cuadradas están en los extras, y los packs incluyen algunas de regalo.",
+      "q8": "¿Cómo pago?",
+      "a8": "En dólares o euros, por adelantado, con tarjeta o transferencia internacional. Lo que pagues por tu primer video se descuenta de un pack si lo contratas en 14 días.",
+      "c.title": "Empieza con un video",
+      "c.lede": "Cuéntanos sobre tu negocio y lo que tienes en mente. Respondemos por correo. ¿Prefieres Instagram? Envíanos un DM.",
+      "c.open": "Enviar DM", "c.email": "Correo", "c.copy": "Copiar", "c.write": "Escribir",
+      "f.name": "Tu nombre", "f.biz": "Negocio", "f.plan": "Qué quieres", "o.first": "Primer video", "o.single": "Individual", "o.studio": "Studio, mensual",
+      "f.link": "Instagram o sitio web", "f.idea": "Tu idea, en pocas palabras", "f.idea.ph": "Un video de lanzamiento para nuestro nuevo postre, divertido, para Reels…",
+      "f.email": "Tu correo", "f.send": "Enviar brief", "f.alt": "¿Prefieres Instagram o correo? Copia tu mensaje",
+      "sent.h": "Brief enviado", "sent.p": "Gracias. Lo leeremos y te responderemos por correo con los próximos pasos.", "sent.again": "Enviar otro brief",
+      "f.out": "Tu mensaje", "f.copy": "Copiar mensaje", "f.ig": "Enviar por Instagram",
+      "foot.1": "Videos cinematográficos con IA para marcas. Desde Río de Janeiro para el mundo."
+    }
+  };
+  var state = { cur: "usd", lang: "en", look: "monolith" };
+  function store(k, v) { try { localStorage.setItem("markes." + k, v); } catch (e) {} }
+  function read(k) { try { return localStorage.getItem("markes." + k); } catch (e) { return null; } }
+
+  function money(n) {
+    var locale = state.lang === "en" ? "en-US" : (state.lang === "pt" ? "pt-BR" : "es-ES");
+    var opts = { style: "currency", currency: state.cur.toUpperCase(), maximumFractionDigits: n % 1 ? 2 : 0, minimumFractionDigits: n % 1 ? 2 : 0 };
+    var s = new Intl.NumberFormat(locale, opts).format(n);
+    return state.lang === "en" ? s.replace("US$", "$") : s;
+  }
+  function renderPrices() {
+    var p = PRICES[state.cur];
+    document.querySelectorAll("[data-price]").forEach(function (el) { el.textContent = money(p[el.getAttribute("data-price")]); });
+    document.querySelectorAll("[data-per]").forEach(function (el) { var k = el.getAttribute("data-per"); el.textContent = money(Math.round(p[k] / COUNT[k])); });
+    document.querySelectorAll("[data-cur]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-cur") === state.cur)); });
+  }
+
+  // i18n: English text in the HTML is the base; other languages override by key.
+  var base = {};
+  document.querySelectorAll("[data-i18n]").forEach(function (el) { base[el.getAttribute("data-i18n")] = el.innerHTML; });
+  document.querySelectorAll("[data-i18n-ph]").forEach(function (el) { base[el.getAttribute("data-i18n-ph")] = el.getAttribute("placeholder"); });
+  function setLang(lang) {
+    state.lang = I18N[lang] || lang === "en" ? lang : "en";
+    var dict = state.lang === "en" ? {} : I18N[state.lang];
+    document.querySelectorAll("[data-i18n]").forEach(function (el) { var k = el.getAttribute("data-i18n"); el.innerHTML = dict[k] || base[k]; });
+    document.querySelectorAll("[data-i18n-ph]").forEach(function (el) { var k = el.getAttribute("data-i18n-ph"); el.setAttribute("placeholder", dict[k] || base[k]); });
+    document.documentElement.lang = state.lang === "pt" ? "pt" : state.lang;
+    document.querySelectorAll("[data-lang]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === state.lang)); });
+    renderPrices(); compose(); store("lang", state.lang);
+    document.querySelectorAll("[data-pause], #ticker-pause").forEach(function (b) { if (b._sync) b._sync(); });
+  }
+  function setLook(look) {
+    state.look = look;
+    if (look === "monolith") document.documentElement.removeAttribute("data-look"); else document.documentElement.setAttribute("data-look", look);
+    document.querySelectorAll(".look").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-look") === look)); });
+    store("look", look);
+    var tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.setAttribute("content", getComputedStyle(document.documentElement).getPropertyValue("--bg").trim());
+  }
+
+  // brief: compose, validate and send (FormSubmit -> e-mail; copy fallback if it fails)
+  var form = document.getElementById("brief"), out = document.getElementById("f-out"), status = document.getElementById("status");
+  var LABELS = {
+    en: ["FILM. Hi! I’d like a video from Markes Studio.", "Name", "E-mail", "Business", "I want", "Link", "Idea"],
+    pt: ["FILM. Olá! Quero um vídeo da Markes Studio.", "Nome", "E-mail", "Negócio", "Quero", "Link", "Ideia"],
+    es: ["FILM. ¡Hola! Quiero un video de Markes Studio.", "Nombre", "Correo", "Negocio", "Quiero", "Enlace", "Idea"]
+  };
+  var MSG = {
+    en: { name: "Write your name.", email: "Write an e-mail we can reply to, like ana@cafe.com.", sending: "Sending…", send: "Send brief", fail: "The brief didn’t go through. Copy the message below and send it on Instagram or by e-mail.", copied: "Copied. Paste it in a DM to @markes.studio or an e-mail to markestudio.official@gmail.com.", select: "Select the message above and copy it." },
+    pt: { name: "Escreva seu nome.", email: "Escreva um e-mail para a gente responder, como ana@cafe.com.", sending: "Enviando…", send: "Enviar briefing", fail: "O briefing não foi enviado. Copie a mensagem abaixo e mande no Instagram ou por e-mail.", copied: "Copiado. Cole numa DM para @markes.studio ou num e-mail para markestudio.official@gmail.com.", select: "Selecione a mensagem acima e copie." },
+    es: { name: "Escribe tu nombre.", email: "Escribe un correo para responderte, como ana@cafe.com.", sending: "Enviando…", send: "Enviar brief", fail: "El brief no se envió. Copia el mensaje de abajo y envíalo por Instagram o por correo.", copied: "Copiado. Pégalo en un DM a @markes.studio o en un correo a markestudio.official@gmail.com.", select: "Selecciona el mensaje de arriba y cópialo." }
+  };
+  function M() { return MSG[state.lang] || MSG.en; }
+  function val(id) { return document.getElementById(id).value.trim(); }
+  function compose() {
+    var L = LABELS[state.lang] || LABELS.en;
+    var sel = document.getElementById("f-plan"), planText = sel.options[sel.selectedIndex].text;
+    var lines = [L[0]];
+    if (val("f-name")) lines.push(L[1] + ": " + val("f-name"));
+    if (val("f-email")) lines.push(L[2] + ": " + val("f-email"));
+    if (val("f-biz")) lines.push(L[3] + ": " + val("f-biz"));
+    lines.push(L[4] + ": " + planText);
+    if (val("f-link")) lines.push(L[5] + ": " + val("f-link"));
+    if (val("f-idea")) lines.push(L[6] + ": " + val("f-idea"));
+    out.value = lines.join("\n");
+    document.getElementById("ig-btn").href = "https://ig.me/m/markes.studio?text=" + encodeURIComponent(out.value.slice(0, 600));
+    document.getElementById("f-lang").value = state.lang;
+  }
+  function setErr(id, msg) {
+    var input = document.getElementById(id), err = document.getElementById("e-" + id.slice(2));
+    if (msg) { input.setAttribute("aria-invalid", "true"); err.textContent = msg; err.hidden = false; }
+    else { input.removeAttribute("aria-invalid"); err.textContent = ""; err.hidden = true; }
+  }
+  function validate() {
+    var first = null;
+    if (!val("f-name")) { setErr("f-name", M().name); first = first || "f-name"; } else setErr("f-name");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val("f-email"))) { setErr("f-email", M().email); first = first || "f-email"; } else setErr("f-email");
+    if (first) document.getElementById(first).focus();
+    return !first;
+  }
+  form.addEventListener("input", function (e) {
+    compose();
+    if (e.target.getAttribute("aria-invalid") === "true") { if (e.target.id === "f-name" && val("f-name")) setErr("f-name"); if (e.target.id === "f-email" && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val("f-email"))) setErr("f-email"); }
+  });
+  form.addEventListener("submit", function (e) {
+    e.preventDefault(); compose(); status.textContent = "";
+    if (!validate()) return;
+    var btn = document.getElementById("send-btn");
+    btn.disabled = true; btn.setAttribute("aria-busy", "true"); btn.textContent = M().sending;
+    var fd = new FormData(form), data = {};
+    fd.forEach(function (v, k) { if (k !== "form-name" && k !== "bot-field") data[k] = v; });
+    if (fd.get("bot-field")) data._honey = fd.get("bot-field");
+    data.message = out.value; data._subject = "Novo briefing: " + val("f-name"); data._replyto = val("f-email"); data._template = "table"; data._captcha = "false";
+    fetch("https://formsubmit.co/ajax/markestudio.official@gmail.com", { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(data) })
+      .then(function (r) { if (!r.ok) throw new Error("status " + r.status); return r.json(); })
+      .then(function (j) { if (!j || String(j.success) !== "true") throw new Error("not sent"); })
+      .then(function () { form.hidden = true; var ok = document.getElementById("sent"); ok.hidden = false; ok.focus(); })
+      .catch(function () { status.textContent = M().fail; document.getElementById("alt").open = true; })
+      .then(function () { btn.disabled = false; btn.removeAttribute("aria-busy"); btn.textContent = M().send; });
+  });
+  document.getElementById("copy-btn").addEventListener("click", function () {
+    compose(); var cs = document.getElementById("copy-status");
+    function fallback() { out.focus(); out.select(); cs.textContent = M().select; }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(out.value).then(function () { cs.textContent = M().copied; }, fallback); else fallback();
+  });
+  document.getElementById("again").addEventListener("click", function () {
+    form.reset(); compose(); document.getElementById("sent").hidden = true; form.hidden = false; document.getElementById("f-name").focus();
+  });
+  document.querySelectorAll("[data-plan]").forEach(function (a) {
+    a.addEventListener("click", function () {
+      var sel = document.getElementById("f-plan"); sel.value = a.getAttribute("data-plan"); compose();
+      setTimeout(function () { document.getElementById("f-name").focus({ preventScroll: true }); }, 700);
+    });
+  });
+
+  // niche explorer (tabs)
+  var tabs = Array.prototype.slice.call(document.querySelectorAll(".ex-tab"));
+  function selectTab(tab, focus) {
+    tabs.forEach(function (t) {
+      var on = t === tab, panel = document.getElementById(t.getAttribute("aria-controls"));
+      t.setAttribute("aria-selected", String(on)); t.tabIndex = on ? 0 : -1;
+      panel.hidden = !on;
+      if (on) { panel.classList.remove("enter"); void panel.offsetWidth; panel.classList.add("enter"); }
+    });
+    if (focus) tab.focus();
+    if (window.matchMedia && matchMedia("(max-width: 980px)").matches) tab.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener("click", function () { selectTab(t); });
+    t.addEventListener("keydown", function (e) {
+      var k = e.key, n = null;
+      if (k === "ArrowDown" || k === "ArrowRight") n = tabs[(i + 1) % tabs.length];
+      if (k === "ArrowUp" || k === "ArrowLeft") n = tabs[(i - 1 + tabs.length) % tabs.length];
+      if (k === "Home") n = tabs[0]; if (k === "End") n = tabs[tabs.length - 1];
+      if (n) { e.preventDefault(); selectTab(n, true); }
+    });
+  });
+
+  // material meter
+  var FILL = { 1: "34%", 2: "66%", 3: "100%" };
+  document.querySelectorAll("[data-level]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var lv = b.getAttribute("data-level");
+      document.querySelectorAll("[data-level]").forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+      document.querySelectorAll(".lvl").forEach(function (l) { l.hidden = l.getAttribute("data-lvl") !== lv; });
+      document.getElementById("meter-fill").style.setProperty("--fill", FILL[lv]);
+    });
+  });
+
+  // hero spotlight
+  var hero = document.querySelector(".hero");
+  if (window.matchMedia && matchMedia("(pointer: fine)").matches && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    var hr = null;
+    hero.addEventListener("pointerenter", function () { hr = hero.getBoundingClientRect(); });
+    window.addEventListener("scroll", function () { hr = null; }, { passive: true });
+    hero.addEventListener("pointermove", function (e) {
+      var r = hr || (hr = hero.getBoundingClientRect());
+      hero.style.setProperty("--mx", (e.clientX - r.left) + "px"); hero.style.setProperty("--my", (e.clientY - r.top) + "px");
+      hero.classList.add("lit");
+    });
+    hero.addEventListener("pointerleave", function () { hero.classList.remove("lit"); });
+  }
+
+  // mobile / mid-width menu
+  var menuBtn = document.querySelector(".menu-btn"), nav = document.getElementById("site-nav");
+  function setMenu(open) {
+    nav.classList.toggle("open", open); menuBtn.setAttribute("aria-expanded", String(open));
+    var L = { en: ["Menu", "Close"], pt: ["Menu", "Fechar"], es: ["Menú", "Cerrar"] }[state.lang] || ["Menu", "Close"];
+    menuBtn.textContent = open ? L[1] : L[0];
+  }
+  menuBtn.addEventListener("click", function () { setMenu(!nav.classList.contains("open")); });
+  nav.querySelectorAll("a").forEach(function (a) { a.addEventListener("click", function () { setMenu(false); }); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && nav.classList.contains("open")) { setMenu(false); menuBtn.focus(); } });
+
+  // copy e-mail
+  document.getElementById("copy-email").addEventListener("click", function () {
+    var st = document.getElementById("email-status"), addr = document.getElementById("email-addr").textContent;
+    var ok = { en: "E-mail copied.", pt: "E-mail copiado.", es: "Correo copiado." }[state.lang];
+    var no = { en: "Select the address and copy it.", pt: "Selecione o endereço e copie.", es: "Selecciona la dirección y cópiala." }[state.lang];
+    function fb() { var r = document.createRange(); r.selectNodeContents(document.getElementById("email-addr")); var sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); st.textContent = no; }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(addr).then(function () { st.textContent = ok; }, fb); else fb();
+  });
+
+  // before/after sound toggle
+  var bav = document.getElementById("ba-video"), bas = document.getElementById("ba-sound");
+  bas.addEventListener("click", function () {
+    bav.muted = !bav.muted; if (!bav.muted) { bav.play().catch(function () {}); }
+    bas.setAttribute("aria-pressed", String(!bav.muted));
+    var L = { en: ["Sound on", "Sound off"], pt: ["Ligar som", "Desligar som"], es: ["Activar sonido", "Quitar sonido"] }[state.lang] || ["Sound on", "Sound off"];
+    bas.textContent = bav.muted ? L[0] : L[1];
+  });
+  if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) { bav.removeAttribute("autoplay"); bav.pause(); }
+
+  // pause controls for autoplaying motion
+  var PL = { en: ["Pause", "Play"], pt: ["Pausar", "Reproduzir"], es: ["Pausar", "Reproducir"] };
+  function pauseLabel(paused) { var L = PL[state.lang] || PL.en; return paused ? L[1] : L[0]; }
+  document.querySelectorAll("[data-pause]").forEach(function (b) {
+    var v = document.getElementById(b.getAttribute("data-pause"));
+    b.addEventListener("click", function () { if (v.paused) { v.play().catch(function () {}); } else { v.pause(); } });
+    function sync() { b.setAttribute("aria-pressed", String(v.paused)); b.textContent = pauseLabel(v.paused); }
+    v.addEventListener("play", sync); v.addEventListener("pause", sync); b._sync = sync; sync();
+  });
+  var tk = document.querySelector(".ticker"), tkb = document.getElementById("ticker-pause");
+  function syncTicker() { var p = tk.classList.contains("paused"); tkb.setAttribute("aria-pressed", String(p)); tkb.textContent = pauseLabel(p); }
+  tkb.addEventListener("click", function () { tk.classList.toggle("paused"); syncTicker(); });
+  tkb._sync = syncTicker;
+
+  // controls
+  document.querySelectorAll("[data-cur]").forEach(function (b) { b.addEventListener("click", function () { state.cur = b.getAttribute("data-cur"); store("cur", state.cur); renderPrices(); }); });
+  document.querySelectorAll("[data-lang]").forEach(function (b) { b.addEventListener("click", function () { setLang(b.getAttribute("data-lang")); }); });
+  document.querySelectorAll(".look").forEach(function (b) { b.addEventListener("click", function () { setLook(b.getAttribute("data-look")); }); });
+
+  // hero video: pause under reduced motion
+  var hv = document.getElementById("hero-video");
+  if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) { hv.removeAttribute("autoplay"); hv.pause(); }
+
+  var savedCur = read("cur"); if (savedCur === "eur" || savedCur === "usd") state.cur = savedCur;
+  else { try { var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; if (/^Europe\//.test(tz)) state.cur = "eur"; } catch (e) {} }
+  var savedLook = read("look"); if (savedLook) setLook(savedLook);
+  // language: a saved choice first, then the browser's languages, then the time zone, then English
+  function detectLang() {
+    var list = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || "en"];
+    for (var i = 0; i < list.length; i++) {
+      var c = String(list[i] || "").slice(0, 2).toLowerCase();
+      if (c === "en" || c === "pt" || c === "es") return c;
+    }
+    var tz = ""; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; } catch (e) {}
+    if (/^(America\/(Sao_Paulo|Fortaleza|Recife|Bahia|Belem|Manaus|Cuiaba|Campo_Grande|Porto_Velho|Boa_Vista|Rio_Branco|Araguaina|Maceio|Noronha|Santarem)|Europe\/Lisbon|Atlantic\/(Azores|Madeira)|Africa\/(Luanda|Maputo))$/.test(tz)) return "pt";
+    if (/^(Europe\/Madrid|Atlantic\/Canary|Africa\/Ceuta|America\/(Mexico_City|Monterrey|Cancun|Merida|Chihuahua|Hermosillo|Mazatlan|Tijuana|Bogota|Lima|Santiago|Caracas|Montevideo|Asuncion|La_Paz|Guayaquil|Panama|Costa_Rica|Guatemala|El_Salvador|Tegucigalpa|Managua|Havana|Santo_Domingo|Puerto_Rico|Buenos_Aires|Argentina\/.+))$/.test(tz)) return "es";
+    return "en";
+  }
+  var savedLang = read("lang");
+  setLang(savedLang === "en" || savedLang === "pt" || savedLang === "es" ? savedLang : detectLang());
+})();
+</script>
+</body>
+</html>
